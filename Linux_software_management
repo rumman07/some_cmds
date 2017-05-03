@@ -1,0 +1,129 @@
+/** 
+*$export EDITOR=$(which vim)
+*comment
+*
+*/
+##Changing shell
+$chsh #interactive
+$chsh -s /path/to/shell #Non interactice the -s option sets the value
+
+##All about Alias
+$alias invent="cd Desktop;mkdir dir1;touch file1;date;cal"
+$invent #to execute the alias command invent
+$unalias <aliaName> #Deletes an alias 
+$alias #shows all the alias that exists on your system
+##To make an alias persistent add it to the .bashrc file under some more ls alias section in the home dir
+
+
+#Sudoers file
+##Sudoers allows particular users to run various commands as the root user, without needing the root password
+##By default the sudoers file is configured in Centos7 to allow all members all users who are members of the 
+##wheel group to use sudo to do anything that root can do
+##Wheel group allows people in group wheel to run all commands
+##Sudoers file could specfy individual users can run what software on which machines 
+##(the sudoers file can be shared between multiple systems) but by default centos has is it set up to where you
+##simply just add a user to the wheel group and you're all set
+
+#The Hisstory 
+$history #show all the command you executed on the system
+$!<command_number> #executes the command by typing in the corresponding number to the command displayed by the history command output
+$history <10 || any number> #Displays the give number of commands previously executed. 
+$vi ~/.bash_history #can manipulate the history file 
+$mv .bash_history bash_history #making the history file visible from hidden by removing the dot preceeding the filename
+$history -c #This will clear your history
+
+##Opening a pdf file 
+$xdg-open <path/to/pdfFilename
+
+#Navigating the linus system and creating files and directory 
+$cd / #root directory
+$cd ~ #home directory
+$ls   #showing you what is in that directory
+$mkdir
+$rmdir
+$rm -r 
+$rm
+$cat #&& ; \
+$sudo #gives you super user previleges
+$cat dmesg | less
+$cat dmesg | grep VGA #the grep command search for only the keyword and prints it out
+$grep <keyword> /path/to/file
+$mv <filename> </where/to/path> #like cut in windows moves the file into new location and removes the original
+$cp <filename> </where/to/path> #make a copy of the file i.e. keeps the original
+$cp -R <dirname> </where/to/path>
+$rsync -avzP <dirname> </where/to/path> #enables you to see the progress and speed of transfer. a=>archive; v=>verbose; z=>compress; P=>progress
+
+$reboot #immediately shutdown the processes running in the background
+$sudo shutdown -r +10 && sudo shutdown -r now || sudo shutdown -r +0; sudo shutdown -r <+time/in/min>
+$sudo shutdown +60; sudo shutdown -h now
+$sudo shutdown -h +15 "The server is going down for maintenance in 15 mins. Please finish your work now."
+$sudo shutdown -c #cancel the shutdown operation
+$telinit 0; telinit 1; telinit 2; telinit 3; telinit 4; telinit 5; telinit 6 #to change the system run level
+$who -r #in order to find the current runlevel
+$sudo cat /etc/sudoers #Sudoers allows particular users to run various commands as the root user, without needing the root password.
+#By default the sudoers file is configured on Centos 7 to allow all members all users who are members of the wheel group to use sudo to do any thing that root can do. 
+$groups cody #Shows all the groups the specified user is member of
+$sudo visudo #to edit the /etc/sudoers file
+$man <command> #brings up the manual for thatparticular command 
+$date
+$sudo date MMddhhmmyyyy.ss #modify the date timestamp
+$sudo usermod -a -G <groupName> <userName> #appends a group to a particular user group membership
+$sudo yum search <packagename>
+$sudo dhclient #assigns an ipaddress
+$sudo dhclient -r #releases an ipaddress
+$getfacl <filename>
+$sudo setfacl -m user:sarah:rwx null
+$find / -perm /4000 -ls
+$find / -perm +4000 -ls #older version
+$sudo chgrp <groupName> <fileName>
+$sudo chown user.user -R .
+
+
+
+
+
+#installing updated version of git
+sudo apt-add-repository ppa:git-core/ppa
+sudo apt-get updated
+sudo apt-get install git
+
+
+# Copies the contents of the id_rsa.pub file to your clipboard
+clip < ~/.ssh/id_rsa.pub
+pbcopy < ~/.ssh/id_rsa.pub
+
+#install ansible
+sudo apt-get install ansible
+
+#Generating ssh key pair
+ssh-keygen
+echo 'public_key' > authorized_keys
+ssh-agent bash
+ssh-add .ssh/id_rsa
+#ping the machine
+ansible -i hosts -u root -m ping all 
+
+#Copying a directory from one linux machine to another linux machine via ssh
+scp -r <directory> <username>@<targethost>:<targetdir>
+scp <option(-v)> <file_name> <user_name>@<ip_address>:<path_to_file>
+
+#The simplest solution for password-less git access would be to use the git remote set-url command 
+#and set an SSH url for the existing repo.
+git remote set-url origin git@github.com:name/repo.git
+
+#Centos7 network and firewall configuration
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --reload
+firewall-cmd --permanent --zone=public --add-port=80/tcp
+systemctl status firewalld
+systemctl start firewalld
+systemctl stop firewalld
+systemctl enable firewalld
+systemctl disable firewalld
+
+#Connecting to a remote cloud instance via ssh private and public key
+ssh-keygen -t rsa -b 2048-f ~/.ssh/azure
+ssh -i ~/.ssh/azure <user_name>@<ip_address>
+
+
+

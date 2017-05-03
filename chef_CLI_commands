@@ -1,0 +1,199 @@
+#Versionable - Testable - Repeatable - Collaborative
+#A resource statement defines the desired state of the configuration, a resource maps to a "provider" which defines
+#the steps to achieve that desired state of configuration.
+
+#In the node in client.rb adding the info log level configuration
+log_level :info
+
+#Notify and subscribe
+notifies :action, 'resource[name]', :timer
+subscribes :action 'resource[name]', :timer
+
+#Installing the chef server******************************************************************************************************
+$wget
+$rpm -Uvh <chef-server-package-name>
+$dpkg -i <chef-server-package-name>
+$chef-server-ctl reconfigure
+#Creating a user in the chef server
+$chef-server-ctl user-create username firstname lastname eamail@email.com 'password' --filename <username>-user-rsa
+#Creating an organization in the chef server 
+$chef-server-ctl org-create <org-short-name> <'ORG fullname'> --association_user <username> --filename <org-short-name>-validator.pem
+#Install GUI based interface it is rails application called chef manage
+$chef-server-ctl install chef-manage 
+$chef-manage-ctl reconfigure
+**********************************************************************************************************************************
+#Downloading the starter kit
+$scp chef-starter.zip user@<ipaddress>:~/
+$ssh user@<ipaddress>
+$su #change to root user
+$yum install unzip
+$usermod -g wheel user #changing the user@user primary group to wheel group 
+$exit
+$sudo unzip chef-starter.zip
+$rm -rf chef-starter.zip
+$sudo knife ssl fetch
+$knife bootstrap <ipaddress> --ssh-user <username> -P <password> --sudo -N <fqdn>
+
+#Using git and github with chef-repo
+$sudo chown user.user -R .
+$git init
+$git add .
+$git status
+#Please tell me who you are RUN the below commands to set your account's default identity
+#Omit --global to set the identity only in the repository  
+$git config --global user.email "email@example.com"
+$git config --global user.name "username"
+$git commit -am "Adding chef-repo to git"
+$git remote add origin <https://url>
+$git push -u origin master
+$knife cookbook create <cookbook_name>
+
+
+
+#pre convergence items
+$chef exec ruby -c /path/to/file
+$ruby -c /path/to/file #directly checking for syntax error
+$foodcritic /path/to/file
+$ruby -c learn.rb && foodcritic learn.rb
+
+#chef commands
+$chef generate recipe cookbooks/apache server
+$chef generate cookbook <cookbooks_dir>/<cookbook_name>
+$sudo chef-client -z -r "recipe[cookbook1],recipe[cookbook2],recipe[cookbook3]"
+$chef generate template cookbooks/<name_of_cookbook> <name_of_template>
+$chef generate file cookbooks/<cookbook_name> <name_of_file>
+$chef-client -W | chef-client --why-run #the -W options runs the chef-client as it would except prevents it from actualling enforcing the configuration on the node
+
+
+#Chef with knife tool bootstrapping a node
+$knife bootstrap <ipaddress> -x <user> -P <password> -N <nodeName> --sudo
+$knife bootstrap localhost --ssh-port 2222 --ssh-user vagrant --sudo --identity-file <path/to/file/private_key> -N <name_of_node>
+$knife node list 
+$knife node run_list add <nodeName-N> 'recipe[<cookbookname>::<recipename>]' -b 'recipe[<cookbookname>]'
+$knife node run_list add <nodeName_N> 'recipe[<cookbookname>::<recipename>]' -a 'recipe[<cookbookname>]'
+$knife node run_list remove <nodeName-N> 'recipe[<cookbookname>::<recipename>],recipe[<cookbookname>]'
+$knife node run_list add web1 "recipe[workstation],recipe[apache]"
+$knife node run_list set load-balancer "recipe[workstation],recipe[apache]"
+$knife cookbook upload <cookbook_name>
+$knife role show <roleName>
+
+#All the knife search command. If no search index is specified the default index is node
+$knife search 'platform_family:rhel'
+$Knife search 'recipes:apache'
+$knife search 'recipes:apache\:\:websites'  
+$knife search node 'platfor?:centos'
+$knife search '*:*' #pulls all the node registered with the chef server 
+$knife search '*:*' -a ipaddress 
+$knife search role 'role:web' -a run_list 
+
+#Creating roles with knife
+$knife role create <rolename>
+$knife role edit <rolename>
+
+#uploading roles to chef server
+$knife role from file roles/web.rb
+$knife node run_list set web1 "role[web]"
+$knife environment list
+$knife environment show <nameofenvironment>
+$knife environment from file <environments_dir>/<env_name.rb>
+$knife node environment set <node_name> <env_name>
+#The knife ssh command
+$knife ssh <ipaddress/fqdn/localhost> 'sudo chef-client' --manual-list --ssh-port 2222 --ssh-user vagrant 
+--identity-file C:/users/rumman/devops_projects/chef-training/chef-repo/.vagrant/machines/web1/virtualbox/private_key
+$knife ssh "*:*" -x <username> -P <password> "sudo chef-client"
+$knife ssh "role:web" -x chef -P chef "sudo chef-client"
+$knife ssh "role:web" "sudo chef-client" -x <username> -P <password>
+$knife ssh "role:<rolename>" "type command to run" -x <username> -P <password>
+#Syntax for knife search index
+$knife search INDEX (client, node, role, environment, data_bags) "key:value"
+$knife search node "role:web AND recipes:apache"
+
+#some ohai commands
+ohai
+ohai ipaddress
+ohai hostname
+ohai memory
+ohai memory/total
+ohai cpu/0/mhz
+
+**********Running Test Kitchen****************************
+#Install the docker test kitchen plugin
+$chef exec gem install kitchen-docker 
+$chef generate cookbook my_cookbook
+$vi .kitchen.yml
+$kitchen converge
+$kitchen list
+$kitchen verify
+$vi test/smoke/default/default_test.rb
+$kitchen test 
+
+#generate secret keys
+$ openssl rand -base64 512 | tr -d '\r\n' > secret-key
+#creating encrypted data bag
+$knife data bag create secret-users --secret-file secret-key 
+#uploading encrypted data bag item
+$knife data bag from file secret-users data_bags/users/julia.json --secret-file secret-key
+#decrypt encrypted data bag items
+$knife data bag show secret-users julia --secret-file secret-key
+
+****************Ruby code for recipes examples*******************************************
+#String interpulation and inserting node attributes inside a recipe
+node['ipaddress']
+node['memory']['total']
+apple_count = 4
+puts "I have #{apple_count} apples"
+
+file '/etc/motd' do
+  content "This computer is the property of RAR
+  HOSTNAME: #{node['hostname']}
+  IPADDRESS: #{node['ipaddress']}
+  CPU: #{node['cpu']['0']['mhz']}
+  MEMORY: #{node['memory']['total']}
+"
+end
+
+
+#Explicitly defining the name of the service to take the action on by assign the name of the service to a variable
+
+service 'apache' do
+    service_name 'httpd'
+    action [:enable, :start]
+end
+
+#Installing multiple package at one time 
+
+%w{httpd vim tree emacs}.each do |pkg|
+    package pkg do
+	   action :upgrade
+	end
+end
+#Another way of installing multiple package at one time
+
+['mysql-server','mysql-common','mysql-client'].each do |pkg|
+    package pkg do
+	  action :install
+	end
+end 
+
+#NOT_IF & ONLY_IF Guards Statement
+#The execute resource type by default is not idempotent so we can make it idempotent 
+#by defiining the only_if and not_if guard statement
+
+#NOT_IF -prevents a resource from executing when a condition returns true
+
+execute 'not-if-example' do
+    command '/usr/bin/echo "10.0.2.1 webserver01" >> /etc/hosts
+	not_if 'test -z $(grep "10.0.2.1 webserver01" /etc/hosts)'
+	not_if { ::File.exists?('/etc/motd') } #using ruby class and method to test for file
+end 
+
+#ONLY_IF -Allow a resource to execute only if the condition true
+
+execute 'only-if-example' do
+    command '/usr/bin/echo "10.0.2.1 webserver01" >> /etc/hosts'
+    only_if 'test -z $(grep "10.0.2.1 webserver01" /etc/hosts)'
+    only_if { ::File.exists?('/etc/motd') } #using ruby class and method to test for file
+end
+	
+
+

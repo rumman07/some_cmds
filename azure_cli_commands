@@ -1,0 +1,41 @@
+$sudo lshw -C disk #shows all the disks and what type of disks currently associated with the server
+$fdisk -l | less
+$fdisk /dev/sdc
+$mkfs -t ext4 /dev/sdc1
+$sudo mkdir /datadrive
+$mount /dev/sdc1 /datadrive 
+$mount
+$df -h
+$blkid #to find out the uuid of the disk
+$umount /datadrive(mountpoint) #to unmount
+$mount /datadrive (mountpoint) #to mount
+$chmod go+w /datadrive #giving write permission for group and other to the directory
+$touch test.file #to create a file test.file
+$sudo passwd root #setting password for the root account.
+
+#Installing a graphical interface GUI for ubuntu VNC || xRDP
+$apt-get install xfce4 #this install the xfce graphical interface
+$apt-get install vnc4server #install the vnc server 
+$vnc4server -geometry 1024x786
+$vnc4server -kill :1
+$exit
+$vnc4server
+$vnc4server -kill :1
+$vi ~/.vnc/xstartup #edit the file by adding at the bottom <startxfce4>
+$vnc4server -geometry 1024x786
+$sudo apt-get install xrdp #installs the xrdp protocol in ubuntu
+
+#Provisioning through cli
+$sudo apt-get update
+$sudo apt-get install nodejs-legacy
+$sudo apt-get install npm
+$sudo npm install -g azure-cli -g #-g -->global
+$azure login
+$azure config mode arm #configuring to use arm
+*********************
+#installing the latest version of nodejs
+$curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+$sudo apt-get install -y nodejs
+*********************************************
+$azure group create rar-center2 eastus #creating a resource group in eastus
+$azure vm quick-create #canonical:ubuntuserver:14.04.2-LTS:latest
