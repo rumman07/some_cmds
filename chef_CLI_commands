@@ -46,7 +46,10 @@ $git config --global user.name "username"
 $git commit -am "Adding chef-repo to git"
 $git remote add origin <https://url>
 $git push -u origin master
-$knife cookbook create <cookbook_name>
+$echo "#these are all the commands to run" >> README.md #this is to create the readme file later on
+$git add README.md #this is to add the readme file creared later on to the github repository
+
+
 
 
 
@@ -76,6 +79,7 @@ $knife node run_list add web1 "recipe[workstation],recipe[apache]"
 $knife node run_list set load-balancer "recipe[workstation],recipe[apache]"
 $knife cookbook upload <cookbook_name>
 $knife role show <roleName>
+$knife cookbook create <cookbook_name>
 
 #All the knife search command. If no search index is specified the default index is node
 $knife search 'platform_family:rhel'
