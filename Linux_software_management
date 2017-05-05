@@ -77,7 +77,9 @@ $find / -perm /4000 -ls
 $find / -perm +4000 -ls #older version
 $sudo chgrp <groupName> <fileName>
 $sudo chown user.user -R .
-
+$chown [options] new_owner object(s)  #The basic syntax for using chown to change owners is 
+$chown alice file1 dir1  #For example, the following would transfer the ownership of a file named file1 and a directory named dir1 to a new owner named alice
+$chown bob:group2 file2  #Thus, for example, the following would change the owner of a file named file2 to the user with the user name bob and change its group to group2
 
 
 
@@ -124,6 +126,14 @@ systemctl disable firewalld
 #Connecting to a remote cloud instance via ssh private and public key
 ssh-keygen -t rsa -b 2048-f ~/.ssh/azure
 ssh -i ~/.ssh/azure <user_name>@<ip_address>
+
+######TAR
+#`tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive.
+$tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar
+$tar -tvf archive.tar   # List all files in archive.tar verbosely
+$tar -xf archive.tar    # Extract all files from archive.tar
+# -C, --directory=DIR        change to directory DIR
+$sudo tar -xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 
 
 
