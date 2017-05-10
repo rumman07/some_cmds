@@ -57,7 +57,7 @@ $git clone <url>
 $git branch <branchName>  #creating a new branch
 $git checkout <branchName>  #switching to a different branch
 $git branch #to show on what branch you are currently working
-$git merge <branchName>  #merging a branch to master branch make sure you are on master branch
+$git merge <branchName>  #merging a branch to master branch make sure you are on master branch and after merging do git "push origin master" to see the changes takes affect in the master branch
 
 
 
@@ -208,6 +208,39 @@ execute 'only-if-example' do
     only_if 'test -z $(grep "10.0.2.1 webserver01" /etc/hosts)'
     only_if { ::File.exists?('/etc/motd') } #using ruby class and method to test for file
 end
-	
+#****************learn.rb************************************************************
+package 'apache' do
+   package_name 'httpd'
+end
+
+service 'httpd' do
+  action [:enable, :start]
+end
+
+file '/var/www/index.html' do
+  action :delete
+end
+
+file '/var/www/html/index.html' do
+  content 'Hello World!'
+  mode '0755'
+  owner 'root'
+  group 'apache'
+end
+
+execute 'command-test1' do
+  command 'echo blah >> /etc/motd'
+  only_if { ::File.exists?('/etc/motd') }
+end
+
+file '/etc/motd' do
+  content "Welcome to my server!"
+end
+
+#execute 'command-test' do
+#  command 'echo blah >> /etc/motd'
+#  only_if 'test -r /etc/motd'
+#end
+
 
 
