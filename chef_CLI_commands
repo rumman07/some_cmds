@@ -51,13 +51,18 @@ $echo "#these are all the commands to run" >> README.md #this is to create the r
 $git add README.md #this is to add the readme file creared later on to the github repository
 $git add --all
 $git add <fileName>
-$git push --set-upstream origin <branchname>
+$git push --set-upstream origin <branchname> #pushing changes to the branch created
 $git clone <url>
 #Creating and switching branches
 $git branch <branchName>  #creating a new branch
 $git checkout <branchName>  #switching to a different branch
 $git branch #to show on what branch you are currently working
+<<<<<<< HEAD
 $git merge <branchName>  #merging a branch to master branch make sure you are on master branch and after merging do git "push origin master" to see the changes takes affect in the master branch
+=======
+$git merge <branchName>  #merging a branch to master branch make sure you are on master branch
+$git checkout -b <branchName>
+>>>>>>> fc69a6a52a73dfcadeffebf177f06d326cbc78a2
 
 
 
