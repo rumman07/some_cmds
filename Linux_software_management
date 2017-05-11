@@ -14,6 +14,11 @@ $unalias <aliaName> #Deletes an alias
 $alias #shows all the alias that exists on your system
 ##To make an alias persistent add it to the .bashrc file under some more ls alias section in the home dir
 
+#Generating a file content with cat*************************
+cat >(filename) <<EOL
+>type
+>here
+EOL 
 
 #Sudoers file
 ##Sudoers allows particular users to run various commands as the root user, without needing the root password

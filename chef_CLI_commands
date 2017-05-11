@@ -138,6 +138,8 @@ ohai cpu/0/mhz
 **********Running Test Kitchen****************************
 #Install the docker test kitchen plugin
 $chef exec gem install kitchen-docker 
+
+$chef exec gem install kitchen-azurerm
 $chef generate cookbook my_cookbook
 $vi .kitchen.yml
 $kitchen converge
@@ -155,6 +157,46 @@ $knife data bag from file secret-users data_bags/users/julia.json --secret-file 
 #decrypt encrypted data bag items
 $knife data bag show secret-users julia --secret-file secret-key
 
+
+#******Adding soft dependencies of cookbooks********************************************
+source 'https://supermarket.chef.io'  #in the Berksfile file
+metadata 
+#
+# Kitchen ONLY includes, comment out before upload
+#
+cookbook 'wag_sshd', path: '../wag_sshd'
+cookbook 'wag_access_sysadmin', path: '../wag_access_sysadmin'
+cookbook 'wag_ldap_integration', path: '../wag_ldap_integration'
+cookbook 'nsswitch', path: '../nsswitch'
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+suites:            #in the .kitchen.yml file
+  - name: default
+    run_list:
+      - recipe[wag_access_tivoli::default]
+      - recipe[wag_sshd::default]
+      - recipe[wag_ldap_integration::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:
+	
+****************************************************************************************	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 ****************Ruby code for recipes examples*******************************************
 #String interpulation and inserting node attributes inside a recipe
 node['ipaddress']
@@ -307,7 +349,7 @@ end
 execute 'systemctl daemon-reload'
 
 service 'tomcat' do
-    action :enable
+    action [:enable, :start]
 end
 **************************************************************************************************************************
   describe file('/etc/sudoers') do
