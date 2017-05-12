@@ -64,10 +64,6 @@ $git merge <branchName>  #merging a branch to master branch make sure you are on
 $git checkout -b <branchName>
 >>>>>>> fc69a6a52a73dfcadeffebf177f06d326cbc78a2
 
-
-
-
-
 #pre convergence items
 $chef exec ruby -c /path/to/file
 $ruby -c /path/to/file #directly checking for syntax error
@@ -163,11 +159,17 @@ $chef exec gem install kitchen-docker
 $chef exec gem install kitchen-azurerm
 $chef generate cookbook my_cookbook
 $vi .kitchen.yml
-$kitchen converge
-$kitchen list
-$kitchen verify
+$kiitchen init #Creates a boilerplate .kitchen.yml which we use to run our tests
+$kitchen list  #List all instances docker containers; ec2 instances; virtual machines 
+$Kitchen create  #Creates one or more instances   
+$kitchen converge #Converge one or more instances 
+$kitchen verify   #Verify one or more instances this runs the test whether the test passed or failed
+$kitchen destroy  #Destroy one or more instances 
+$kitchen test   #Executes kitchen { destroy, create, converge, verify, destroy }/all-in-one
+$kitchen login  #login to one instances
+$kitchen help   #Provides a list of available kitchen commands 
 $vi test/smoke/default/default_test.rb
-$kitchen test 
+
 
 #generate secret keys
 $ openssl rand -base64 512 | tr -d '\r\n' > secret-key
