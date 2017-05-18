@@ -71,10 +71,11 @@ $foodcritic /path/to/file
 $ruby -c learn.rb && foodcritic learn.rb
 
 #chef generate commands
-$chef generate recipe cookbooks/apache server
 $chef generate cookbook <cookbooks_dir>/<cookbook_name>
+$chef generate recipe cookbooks/apache <name_of_recipe_without_.rb>
+$chef generate attribute cookbooks/lamp <name_of_attrbute_without_.rb>   #the name of the default attribute is default.rb 
+$chef generate template <path_to_cookbook> <name_of_template_without_.erb>
 $sudo chef-client -z -r "recipe[cookbook1],recipe[cookbook2],recipe[cookbook3]"
-$chef generate template cookbooks/<name_of_cookbook> <name_of_template>
 $chef generate file cookbooks/<cookbook_name> <name_of_file>
 $chef-client -W | chef-client --why-run #the -W options runs the chef-client as it would except prevents it from actualling enforcing the configuration on the node
 
@@ -92,6 +93,7 @@ $knife node run_list set load-balancer "recipe[workstation],recipe[apache]"
 $knife cookbook upload <cookbook_name>
 $knife role show <roleName>
 $knife cookbook create <cookbook_name>
+$knife supermarket show httpd | grep latest_version #gets the version information 
 
 #All the knife search command. If no search index is specified the default index is node
 $knife search 'platform_family:rhel'
@@ -169,6 +171,7 @@ $kitchen destroy  #Destroy one or more instances
 $kitchen test   #Executes kitchen { destroy, create, converge, verify, destroy }/all-in-one
 $kitchen login  #login to one instances
 $kitchen help   #Provides a list of available kitchen commands 
+$kitchen exec -c whoami #prints the name of the current user.
 $vi test/smoke/default/default_test.rb
 
 
@@ -206,6 +209,16 @@ suites:            #in the .kitchen.yml file
 	
 ****************************************************************************************	
 	
+/**
+*Adding an ip address and proxy server url variable to a test instance in the kitchen.yml file
+*/
+driver:
+  name: vagrant
+  network:
+     - ["private_network", {ip: "192.168.34.34"}]
+  driver_config:
+  https_proxy: http://corppac.walgreens.com:8080
+  http_proxy: http://corppac.walgreens.com:8080
 	
 	
 	
