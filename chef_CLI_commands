@@ -70,7 +70,7 @@ $ruby -c /path/to/file #directly checking for syntax error
 $foodcritic /path/to/file
 $ruby -c learn.rb && foodcritic learn.rb
 
-#chef commands
+#chef generate commands
 $chef generate recipe cookbooks/apache server
 $chef generate cookbook <cookbooks_dir>/<cookbook_name>
 $sudo chef-client -z -r "recipe[cookbook1],recipe[cookbook2],recipe[cookbook3]"
@@ -79,9 +79,10 @@ $chef generate file cookbooks/<cookbook_name> <name_of_file>
 $chef-client -W | chef-client --why-run #the -W options runs the chef-client as it would except prevents it from actualling enforcing the configuration on the node
 
 
-#Chef with knife tool bootstrapping a node
+#knife bootstrapping a node
 $knife bootstrap <ipaddress> -x <user> -P <password> -N <nodeName> --sudo
 $knife bootstrap localhost --ssh-port 2222 --ssh-user vagrant --sudo --identity-file <path/to/file/private_key> -N <name_of_node>
+#Knife commands
 $knife node list 
 $knife node run_list add <nodeName-N> 'recipe[<cookbookname>::<recipename>]' -b 'recipe[<cookbookname>]'
 $knife node run_list add <nodeName_N> 'recipe[<cookbookname>::<recipename>]' -a 'recipe[<cookbookname>]'
