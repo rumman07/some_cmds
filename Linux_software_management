@@ -5,7 +5,7 @@
 */
 ##Changing shell
 $chsh #interactive
-$chsh -s /path/to/shell #Non interactice the -s option sets the value
+$chsh -s /path/to/shell #Non interactive the -s option sets the value
 
 ##All about Alias
 $alias invent="cd Desktop;mkdir dir1;touch file1;date;cal"
@@ -22,12 +22,10 @@ EOL
 
 #Sudoers file
 ##Sudoers allows particular users to run various commands as the root user, without needing the root password
-##By default the sudoers file is configured in Centos7 to allow all members all users who are members of the 
-##wheel group to use sudo to do anything that root can do
+##By default the sudoers file is configured in Centos7 to allow all members all users who are members of the wheel group to use sudo to do anything that root can do
 ##Wheel group allows people in group wheel to run all commands
-##Sudoers file could specfy individual users can run what software on which machines 
-##(the sudoers file can be shared between multiple systems) but by default centos has is it set up to where you
-##simply just add a user to the wheel group and you're all set
+##Sudoers file could specify individual users can run what software on which machines 
+##(the sudoers file can be shared between multiple systems) but by default centos has is it set up to where you simply just add a user to the wheel group and you're all set
 
 #The Hisstory 
 $history #show all the command you executed on the system
@@ -38,14 +36,18 @@ $mv .bash_history bash_history #making the history file visible from hidden by r
 $history -c #This will clear your history
 
 ##Opening a pdf file 
-$xdg-open <path/to/pdfFilename
+$xdg-open <path/to/pdfFilename>
 
 #Navigating the linus system and creating files and directory 
 $cd / #root directory
 $cd ~ #home directory
+$cd - #takes you back to the last accessed directory
+$cd .. #changes to the parent directory of the current directory
 $ls   #showing you what is in that directory
+$less #to page the content of a file or standard output
 $mkdir
 $rmdir
+$touch #to create a empty file or to update the timestamp of a file
 $rm -r 
 $rm
 $cat #&& ; \
@@ -57,7 +59,7 @@ $mv <filename> </where/to/path> #like cut in windows moves the file into new loc
 $cp <filename> </where/to/path> #make a copy of the file i.e. keeps the original
 $cp -R <dirname> </where/to/path>
 cp /home/usr/dir/{file1,file2,file3,file4} /home/usr/destination/ #to copy multiple files at once
-cp /path/to/{dir1,dir2,dir3,dir4} /path/to/destination #to copy multiple directories at once 
+cp /path/to/{dir1,dir2,dir3,dir4} /path/to/destination #to copy multiple directories at once
 $rsync -avzP <dirname> </where/to/path> #enables you to see the progress and speed of transfer. a=>archive; v=>verbose; z=>compress; P=>progress
 
 $reboot #immediately shutdown the processes running in the background
@@ -69,8 +71,9 @@ $telinit 0; telinit 1; telinit 2; telinit 3; telinit 4; telinit 5; telinit 6 #to
 $who -r #in order to find the current runlevel
 $sudo cat /etc/sudoers #Sudoers allows particular users to run various commands as the root user, without needing the root password.
 #By default the sudoers file is configured on Centos 7 to allow all members all users who are members of the wheel group to use sudo to do any thing that root can do. 
-$groups cody #Shows all the groups the specified user is member of
 $sudo visudo #to edit the /etc/sudoers file
+
+$groups cody #Shows all the groups the specified user is member of
 $man <command> #brings up the manual for thatparticular command 
 $date
 $sudo date MMddhhmmyyyy.ss #modify the date timestamp

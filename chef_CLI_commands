@@ -1,6 +1,12 @@
-#Versionable - Testable - Repeatable - Collaborative
-#A resource statement defines the desired state of the configuration, a resource maps to a "provider" which defines
-#the steps to achieve that desired state of configuration.
+/**Versionable - Testable - Repeatable - Collaborative
+*A resource statement defines the desired state of the configuration, a resource maps to a "provider" which defines
+*the steps to achieve that desired state of configuration.
+*An application cookbook typically contains multiple recipes, where each recipe configures one part of the system. The default recipe, default.rb, lists these recipes in 
+*the order needed to build your application or service.
+*
+*
+*
+*/
 
 #In the node in client.rb adding the info log level configuration
 log_level :info
