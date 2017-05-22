@@ -28,6 +28,15 @@ $chef-server-ctl org-create <org-short-name> <'ORG fullname'> --association_user
 $chef-server-ctl install chef-manage 
 $chef-manage-ctl reconfigure
 **********************************************************************************************************************************
+
+#Restarting the chef server
+Chef-manage-ctl stop
+Chef-server-ctl stop
+Chef-server-ctl start
+Chef-manage-ctl reconfigure
+Chef-manage-ctl start
+
+
 #Downloading the starter kit
 $scp chef-starter.zip user@<ipaddress>:~/
 $ssh user@<ipaddress>
