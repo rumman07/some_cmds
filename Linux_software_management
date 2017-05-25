@@ -3,6 +3,7 @@
 *comment
 *
 */
+
 ##Changing shell
 $chsh #interactive
 $chsh -s /path/to/shell #Non interactive the -s option sets the value
@@ -149,3 +150,21 @@ $sudo tar -xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 
 
 
+
+
+##############TROUBLE_SHOOTING###########################################
+#ERROR: 
+#E: Could not get lock /var/lib/dpkg/lock - open (11 Resource temporarily unavailable)
+#E: Unable to lock the administration directory (/var/lib/dpkg/) is another process using it
+$ps aux | grep apt   # will catch processes containing the word apt, at least. If you see an apt-get process or an aptitude process that looks stuck, you can try
+$kill processnumber
+#and if that doesn't work try
+$kill -9 processnumber    #This should kill the process and may remove the lock. 
+
+/**
+*Killing an apt or aptitude process is harmless unless it is actually in the middle of package installation. In any case, if the process got stuck, 
+*you probably don't have a choice but to kill it.
+*Killing a dpkg process directly, if present, is not a good idea, because if dpkg is active, it is probably manipulating the package database, 
+*and killing it may leave the package database in an inconsistent state; i.e. corrupted.
+*Killing an apt-get or aptitude process is in general much safer.
+*/
