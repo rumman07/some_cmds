@@ -186,7 +186,8 @@ $kitchen destroy  #Destroy one or more instances
 $kitchen test   #Executes kitchen { destroy, create, converge, verify, destroy }/all-in-one
 $kitchen login  #login to one instances
 $kitchen help   #Provides a list of available kitchen commands 
-$kitchen exec -c whoami #prints the name of the current user.
+$kitchen exec -c whoami #prints the name of the current user
+$kitchen exec -c 'ip a s'  #if the command is not a single word 'enclose it within single quote'
 $vi test/smoke/default/default_test.rb
 
 
