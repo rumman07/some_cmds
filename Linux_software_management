@@ -59,8 +59,8 @@ $grep <keyword> /path/to/file
 $mv <filename> </where/to/path> #like cut in windows moves the file into new location and removes the original
 $cp <filename> </where/to/path> #make a copy of the file i.e. keeps the original
 $cp -R <dirname> </where/to/path>
-cp /home/usr/dir/{file1,file2,file3,file4} /home/usr/destination/ #to copy multiple files at once
-cp /path/to/{dir1,dir2,dir3,dir4} /path/to/destination #to copy multiple directories at once
+$cp /home/usr/dir/{file1,file2,file3,file4} /home/usr/destination/ #to copy multiple files at once
+$cp /path/to/{dir1,dir2,dir3,dir4} /path/to/destination #to copy multiple directories at once
 $rsync -avzP <dirname> </where/to/path> #enables you to see the progress and speed of transfer. a=>archive; v=>verbose; z=>compress; P=>progress
 $wget <url> -P <path/to/folder> #-P option specifies the path to download the file 
 $wget -i <path/to/url_link_file.txt> -P <path/to/destination/folder> #the -i option reads the input url from a text file
@@ -168,3 +168,12 @@ $kill -9 processnumber    #This should kill the process and may remove the lock.
 *and killing it may leave the package database in an inconsistent state; i.e. corrupted.
 *Killing an apt-get or aptitude process is in general much safer.
 */
+
+#ERROR: Bridged adapter not connecting to network | Cannot find device "eth0" | Failed to bring up eth0
+#The above error was solved by using the command:
+$sudo rm -rf /etc/udev/rules.d/70-persistent-net.rules   # The command will remove network persistence rules
+$sudo reboot
+#auto enp0s3||<interface_name> 
+#example: auto eth0
+#iface enp0s3 ||<interface_name> inet dhcp || static
+#example: iface eth0 inet dhcp
