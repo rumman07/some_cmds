@@ -4,7 +4,14 @@
 *An application cookbook typically contains multiple recipes, where each recipe configures one part of the system. The default recipe, default.rb, lists these recipes in 
 *the order needed to build your application or service.
 *
+*In Chef code, you'll often see the ::File notation. The colon :: notation specifies use of the core Ruby File class
+*The Chef::Resource::File class also exists to implement the file resource
 *
+*A wrapper cookbook extends or changes the behavior of a cookbook without forking it 
+*
+*The <%= %> notation indicates placeholders that are replaced when Chef applies the template
+*
+*Because Chef loads dependent cookbooks first, the values specified in the current cookbook's attributes file will overwrite any existing attribute values
 *
 */
 

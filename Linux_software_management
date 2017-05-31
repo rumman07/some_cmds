@@ -2,6 +2,21 @@
 *$export EDITOR=$(which vim)
 *comment
 *
+*$command FLAGS/OPTIONS/SUBCOMMANDS/ARGUMENTS  # Basic structure of commands
+*
+*#Flags start with a single dash and are followed by a single letter. For example, if you want to view the contents of a directory in long format you can use ls -l. 
+*#The longer form starts with two dashes and is then followed by an entire word. For example, "chef --help" Flags are almost always optional and can be specified in any order
+*
+*#Options are like flags but require a value to follow them. An example is the user name or password you provide when you bootstrap a Chef node with the knife command, 
+*#"knife bootstrap ipaddress --user USERNAME --ssh-password PASSWORD" Options are almost always optional and can be specified in any order
+*
+*#Some commands require additional commands, called subcommands, that refine the focus of the original command. One example is "git status" which uses the git command and the status 
+*#subcommand to ask for status. Commands may require multiple subcommands to increasingly refine their scope. These subcommands must be provided in a specific order
+*
+*#Some commands may allow for optional arguments or require them to be specified. An example is the ls command. When a valid path is provided as an argument, such as ls ~, 
+*#the files within that directory are displayed. These arguments are often required and must be provided in a specific order.
+*
+*
 */
 
 ##Changing shell
