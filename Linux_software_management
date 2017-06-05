@@ -16,10 +16,43 @@
 *#Some commands may allow for optional arguments or require them to be specified. An example is the ls command. When a valid path is provided as an argument, such as ls ~, 
 *#the files within that directory are displayed. These arguments are often required and must be provided in a specific order.
 *
+*The yum command line utility is a package management program for those linux distributions that uses the RPM packages
+*The basics of run level
+*0-halt (do not set initdefault to this); 1-Single user mode; 2-Multiuser, without NFS(The same as 3, if you do not have networking); 3-Full multiuser mode
+*4-unused or admin; 5-The default run level if you have a graphical user interface on your Centos server; 6-reboot(do not set initdefault to this)
+*Editing the /etc/inittab to change default runlevel (id:5:initdefault:<br />
+*The Mount directory is where you typically going to store your directories that you want to use as mount points for your filesystems 
 *
 */
 
-##Changing shell
+**************Installing and managing software**********************
+#yum commands
+$yum search string   # Search for string
+$yum info <package_name>    # Display info
+$yum install -y <package_name>   # The -y option answers yes to all the prompt
+$yum remove <package_name> 
+
+#RPM commands
+$rpm -qa   # Lists all the installed packages
+$rpm -qf </path/to/file>   # Will will link the file to the package it belongs to 
+$rpm -ql <package_name>    # Will list all the files that belongs to that particular package
+$rpm -ivh <package_file.rpm>   # to install a package 
+$rpm -e <package_name>    #to erase or uninstall a package 
+
+#APT commands for debian
+$apt-cache search string 
+$apt-get install -y <package_name>
+$apt-get remove package   #removes package leaving configuration 
+$apt-get purge  #removes package deleting configuration
+$apt-cache show <package_name>    # To show information about a particular package
+
+#DPKG commands to interact with a package manager debian distributions
+$dpkg -l   #lists installed packages
+$dpkg -S </path/to/file>   # Will display a package that the file belongs to
+$dpkg -L <package_name>    # List all the files in a package
+$dpkg -i <package_name.deb>     # Installs a package
+
+#Changing shell
 $chsh #interactive
 $chsh -s /path/to/shell #Non interactive the -s option sets the value
 
@@ -30,7 +63,7 @@ $unalias <aliaName> #Deletes an alias
 $alias #shows all the alias that exists on your system
 ##To make an alias persistent add it to the .bashrc file under some more ls alias section in the home dir
 
-#Generating a file content with cat*************************
+#Generating a file content with cat 
 cat >(filename) <<EOL
 >type
 >here
@@ -82,6 +115,7 @@ $rsync -avzP <dirname> </where/to/path> #enables you to see the progress and spe
 $wget <url> -P <path/to/folder> #-P option specifies the path to download the file 
 $wget -i <path/to/url_link_file.txt> -P <path/to/destination/folder> #the -i option reads the input url from a text file
 
+#Shutting down and rebooting the system 
 $reboot #immediately shutdown the processes running in the background
 $sudo shutdown -r +10 && sudo shutdown -r now || sudo shutdown -r +0; sudo shutdown -r <+time/in/min>
 $sudo shutdown +60; sudo shutdown -h now
