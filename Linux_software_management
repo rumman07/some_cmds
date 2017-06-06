@@ -76,6 +76,16 @@ EOL
 ##Sudoers file could specify individual users can run what software on which machines 
 ##(the sudoers file can be shared between multiple systems) but by default centos has is it set up to where you simply just add a user to the wheel group and you're all set
 
+#Permissions
+$sudo chmod <octo_value> <fileName>
+$sudo chmod ugo+rwx <fileName>
+$sudo chmod ugo-rwx <fileName>
+#ACL - Access Control List
+$getfacl <fileName> # getfacl <fileName> is going to show a list of permissions for this file
+$man setfacl
+$sudo setfacl -m user:<user_name>:rwx <fileName>
+$sudo setfacl -m user:<user_name>:--- <fileName>
+
 #The Hisstory 
 $history #show all the command you executed on the system
 $!<command_number> #executes the command by typing in the corresponding number to the command displayed by the history command output
