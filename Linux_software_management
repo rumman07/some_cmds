@@ -85,6 +85,20 @@ $getfacl <fileName> # getfacl <fileName> is going to show a list of permissions 
 $man setfacl
 $sudo setfacl -m user:<user_name>:rwx <fileName>
 $sudo setfacl -m user:<user_name>:--- <fileName>
+$lsblk -f  # to view label and UUID
+$blkid   #to view only the UUID 
+$vi /etc/fstab   #make entry in the /etc/fstab to make mount persistent 
+#UUID  /mountpoint  filesystem type   defaults 0 0
+
+#Filesystem
+$df -h # lists the file system size in gigabytes and megabytes
+$sudo fdisk -l  #lists all disk all partitions all file systems which are technically available to be mounted but may or may not be mounted currently
+$sudo mount -t <filesystemtype> /dev/device_name(sdb1) <mount_point /mnt/test>  # to mount an available storage
+$sudo parted then print all # shows the file system type not shown by the fdisk utility
+$sudo umount </mount point or path/to/device /dev/sdb1> # to unmount a filesystem use the umount command 
+$sudo fdisk /path/to/device </dev/sdb> #m => menue, n => new MBR partition; w => write the changes to disk; d => delete partition  
+$sudo mkfs.ext4 /dev/sdb1 # creates a filesystem of ext4
+
 
 #The Hisstory 
 $history #show all the command you executed on the system
