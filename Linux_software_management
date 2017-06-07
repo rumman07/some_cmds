@@ -98,7 +98,37 @@ $sudo mount -t <filesystemtype> /dev/device_name(sdb1) <mount_point /mnt/test>  
 $sudo parted then print all # shows the file system type not shown by the fdisk utility
 $sudo umount </mount point or path/to/device /dev/sdb1> # to unmount a filesystem use the umount command 
 $sudo fdisk /path/to/device </dev/sdb> #m => menue, n => new MBR partition; w => write the changes to disk; d => delete partition; g => GPT partition   
-$sudo mkfs.ext4 /dev/sdb1 # creates a filesystem of ext4
+$sudo mkfs.ext4 /dev/sdb1 # creates a filesystem of ext4 
+ 
+#Forming a RAID array
+$sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1  # forming a software raid 1 array with mdadm
+$sudo mkfs.ext4 /dev/md0  # This will make a file system on the array itself
+$sudo mdadm --detail /dev/md0  #This is to check the status of th enewly formed array
+$sudo blkid   # to find the UUID of the newly formed array md0
+##Make the entry in the /etc/fstab => UUID=dsdklajfkljflkdjfkdflksdfk    /mount/point     filesystem/type     defaults   0 0 
+
+#How to mark a disk as failed in an MDADM RAID array and how to replace that
+$cat /proc/mdstat   # to check degradation on any of the disks 
+$sudo mdadm --detail /dev/md0  #This is to check the status of th enewly formed array
+$sudo mdadm --manage /dev/md0 --fail /dev/sdb1 # this is the command to mark the disc as failed
+$sudo mdadm --manage /dev/md0 --remove /dev/sdb1
+$sudo shutdown -h now
+##After the machine is back up and the failed disk has been removed and added a new disk and partioned it only after these steps run the below command
+$sudo mdadm --manage /dev/md0 --add /dev/sdb1    #Add disk back to the RAID array 
+$sudo mdadm --detail /dev/md0 
+$cat /proc/mdstat  #to check degradation on any of the disks
+##Destroying an array 
+$sudo umount /dev/md0   # first unmount the array 
+$sudo mdadm --stop /dev/md0  # to stop the array 
+$sudo mdadm --remove /dev/md0  # make sure to stop the array before attempting to remove it
+$sudo mdadm --zero-superblock /dev/sdb1
+$sudo mdadm --zero-superblock /dev/sdc1 
+##Remove the array entry from the /etc/fstab 
+$sudo shutdown -h now 
+##To verify the status that the array has been removed 
+$sudo mdadm --detail /dev/md0 
+$df -h 
+$sudo mount -t ext4 /dev/md0 /mnt/test   # this will fail since the array does not exist
 
 
 #The Hisstory 
