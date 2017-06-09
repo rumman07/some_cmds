@@ -103,7 +103,7 @@ $sudo mkfs.ext4 /dev/sdb1 # creates a filesystem of ext4
 #Forming a RAID array
 $sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1  # forming a software raid 1 array with mdadm
 $sudo mkfs.ext4 /dev/md0  # This will make a file system on the array itself
-$sudo mdadm --detail /dev/md0  #This is to check the status of th enewly formed array
+$sudo mdadm --detail /dev/md0  #This is to check the status of the newly formed array
 $sudo blkid   # to find the UUID of the newly formed array md0
 ##Make the entry in the /etc/fstab => UUID=dsdklajfkljflkdjfkdflksdfk    /mount/point     filesystem/type     defaults   0 0 
 
