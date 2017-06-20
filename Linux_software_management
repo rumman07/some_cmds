@@ -142,6 +142,11 @@ $history -c #This will clear your history
 ##Opening a pdf file 
 $xdg-open <path/to/pdfFilename>
 
+##############The magic of SED*******************************
+$sed -i '<line#>,<line#> d' <fileName>  # Deletes the line numbers from the file 
+$sed -i '/PATTERN/ d' <fileName>    #Deletes the pattern from the file 
+$sed -i '/PATTERN/ !d' <fileName>    #Deletes everything else not matching the pattern from the file
+
 #Navigating the linux system and creating files and directory 
 $cd / #root directory
 $cd ~ #home directory
