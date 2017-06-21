@@ -1,3 +1,8 @@
+> Login-AzureRMAccount
+> Add-AzureRMAccount 
+> Get-AzureRMSubscription
+
+
 $sudo lshw -C disk #shows all the disks and what type of disks currently associated with the server
 $fdisk -l | less
 $fdisk /dev/sdc
