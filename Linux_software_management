@@ -263,6 +263,21 @@ $sudo tar -xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 
 
 
+**************************Virtualization KVM***************************************************
+/**
+*Virtualization is really taking something that is actual and virtualizing it. There are different kinds of virtualizations: Hardware virtualization, Partial virtualization and Para Virtualization
+*Full Virtulaization: Complete simulation of the actual hardware to allow software, which typically consists of a guest machine or virtual machine. KVM uses full virtualization
+*
+*
+*/
+#Checking systems configuration for virtualization requirements
+$cat /proc/cpuinfo
+$grep --color -Ew 'svm|vmx\1m' /proc/cpuinfo 
+$lscpu
+$free -m  #to check memory status
+
+
+
 ##############TROUBLE_SHOOTING###########################################
 #ERROR: 
 #E: Could not get lock /var/lib/dpkg/lock - open (11 Resource temporarily unavailable)
