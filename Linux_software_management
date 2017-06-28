@@ -267,6 +267,14 @@ $sudo tar -xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 /**
 *Virtualization is really taking something that is actual and virtualizing it. There are different kinds of virtualizations: Hardware virtualization, Partial virtualization and Para Virtualization
 *Full Virtulaization: Complete simulation of the actual hardware to allow software, which typically consists of a guest machine or virtual machine. KVM uses full virtualization
+*Para-virtualizatio: The hardware env is not simulated Advantage its faster then Full virtualization. Disadvantage The guest operating system i actually gonna require special device drivers
+*VMM/Hypervisor is a piece of software that is responsible for monitoring and controlling virtual machines or guest operating system : Type 1 Hypervisor; the hypervisor runs 
+*directly on top of the hardware : Type 2 Hypervisor; the hypervisor acts as a seperate layer often on top of a base Operating System. Type 2 hypervisor are also known as hosted hypervisor 
+*Type 2 Hypervisor are dependent on the host operating system for every operations that takes place. The main advantage of type 2 hypervisor is the wide range of hardware support
+*because the uderlying host operating system is controlling all of the hardware access. The KVM Hypervisor supports over commiting of system resources 
+*Overcommitting is to allocate more virtualized CPUs or virtual memory than the available resources on the host system provides 
+*Thin Provisioning allows you to optimize available storage space for the guest virtual machines. Similar to over committing but only pertains to storage not CPU and memory  
+*
 *
 *
 */
