@@ -1,7 +1,7 @@
 /** 
 *$export EDITOR=$(which vim)
 *comment
-*
+* plink -ssh wagsadmin@pln-awuchef01.walgreens.com
 *$command FLAGS/OPTIONS/SUBCOMMANDS/ARGUMENTS  # Basic structure of commands
 *
 *#Flags start with a single dash and are followed by a single letter. For example, if you want to view the contents of a directory in long format you can use ls -l. 
