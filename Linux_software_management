@@ -263,7 +263,7 @@ $sudo tar -xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 
 
 
-**************************Virtualization KVM***************************************************
+**************************Virtualization QEMU-KVM***************************************************
 /**
 *Virtualization is really taking something that is actual and virtualizing it. There are different kinds of virtualizations: Hardware virtualization, Partial virtualization and Para Virtualization
 *Full Virtulaization: Complete simulation of the actual hardware to allow software, which typically consists of a guest machine or virtual machine. KVM uses full virtualization
@@ -278,11 +278,41 @@ $sudo tar -xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 *
 *
 */
+
+#Installing Packer on Centos 7.3
+$sudo yum update -y
+$sudo wget https://releases.hashicorp.com/packer/1.0.2/packer_1.0.2_linux_amd64.zip?_ga=2.200136806.997903006.1498856840-1304292629.1498856840
+$mkdir /usr/local/packer_7.5
+$cp packer_0.7.5_linux_amd64.zip /usr/local/packer_1.0.2
+$sudo unzip packer_0.8.6_linux_amd64.zip
+$export PATH="/usr/local/packer_1.0.2:$PATH"
+#Add the export command into ~/.bash_profile to ensure this path change persists after reboots
+$cat ~/.bash_profile
+$export PATH="/usr/local/packer_1.0.2:$PATH"
+
+
 #Checking systems configuration for virtualization requirements
 $cat /proc/cpuinfo
 $grep --color -Ew 'svm|vmx\1m' /proc/cpuinfo 
 $lscpu
 $free -m  #to check memory status
+
+#Installing the virtualization packages
+$yum groupinfo virtualization
+$yum group install virtualization 
+$yum install qemu-kvm libvirtd virt-install virt-manager -y
+
+#Make sure that the libvirtd service is statred. THe libvirtd service when started wil exposed the API that allows to interact with qemu-kvm binary 
+$Systemctl status libvirtd 
+
+#TO validate that the libvirt hypervisor drivers can be run using the KVM virtualization
+$virt-host-validate 
+$virsh nodeinfo
+$virsh domcapabilities
+
+###Polkit allows to create rules example: Allowing users that belong to wheel group access to virtual machine manager 
+$vi /etc/polkit-1/rules.d/50-default.rules 
+
 
 
 
@@ -307,7 +337,9 @@ $kill -9 processnumber    #This should kill the process and may remove the lock.
 #The above error was solved by using the command:
 $sudo rm -rf /etc/udev/rules.d/70-persistent-net.rules   # The command will remove network persistence rules
 $sudo reboot
-#auto enp0s3||<interface_name> 
-#example: auto eth0
-#iface enp0s3 ||<interface_name> inet dhcp || static
-#example: iface eth0 inet dhcp
+/**
+*auto enp0s3||<interface_name> 
+*example: auto eth0
+*iface enp0s3 ||<interface_name> inet dhcp || static
+*example: iface eth0 inet dhcp
+*/
