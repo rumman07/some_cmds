@@ -343,3 +343,8 @@ $sudo reboot
 *iface enp0s3 ||<interface_name> inet dhcp || static
 *example: iface eth0 inet dhcp
 */
+
+###Virtualbox guest edition doesnt Install. Remedy in order to install the guest edition in virtualbox which will give enhanced virtual hardware 
+###capabilities we need first need to make sure or install the kernel header
+$yum install kernel-devel
+$yum install gcc*   
