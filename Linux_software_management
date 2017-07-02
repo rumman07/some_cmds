@@ -25,32 +25,61 @@
 *
 */
 
-**************Installing and managing software**********************
+**************Installing Packages and Package Managers**********************
+/**
+*Packages actually rely on other programs in order to install the software. Binary packages are packages that have an executable built from source
+*
+*
+*/
 #yum commands
-$yum search string   # Search for string
+$ls -la /etc/yum.repos.d/  #yum restores repositories and online repositories list from which we downloads package names 
+$yum search <packageName>   # Search for string
 $yum info <package_name>    # Display info
 $yum install -y <package_name>   # The -y option answers yes to all the prompt
 $yum remove <package_name> 
+$yum update  #update the source lists of the packages 
+$yum upgrade
+$yum check-update <packageName>  #To check if a package needs update 
+$yum deplist <packageName>  #To check what dependencies required for a specific package
+$yum clean packages  #Removes junks left behind from uninstalled packages
+$yum clean all  #To remove anything from a temp file or packages already uninstalled
 
 #RPM commands
+$rpm -q <packageName>   #query a package
+$rpm -qi <packageName>  #i=detail information about the package 
 $rpm -qa   # Lists all the installed packages
+$rpm -qR <packageName>   #To check for required dependent packagees. R=Required
 $rpm -qf </path/to/file>   # Will will link the file to the package it belongs to 
 $rpm -ql <package_name>    # Will list all the files that belongs to that particular package
-$rpm -ivh <package_file.rpm>   # to install a package 
-$rpm -e <package_name>    #to erase or uninstall a package 
+$rpm -ivh <package_file.rpm>   # to i=install a package, v=verbose, h=hash shows progress
+$rpm -e <package_name>     #to erase or uninstall a package 
 
 #APT commands for debian
-$apt-cache search string 
+$vi /etc/apt/sources.list 
+$apt-cache search <string> 
 $apt-get install -y <package_name>
 $apt-get remove package   #removes package leaving configuration 
+$apt-get remove --purge <packageName>
+$apt-get autoremove <packageName>   #The name of the package as an arguement is optional 
+$apt-get upgrade 
+$apt-get dist-upgrade  #upgrade the underlying linux operating system
+$apt-get update  #dpkg does not automatically download and install dependency packages for an application hence it flags the system for the needed update the local cache. Instead 
+$apt-get -f upgrade  #of downloading and installing all the individual packages needed with dpkg the short cut is to do a $apt-get update and then do a fix upgrade like so $apt-get -f upgrade
 $apt-get purge  #removes package deleting configuration
 $apt-cache show <package_name>    # To show information about a particular package
 
 #DPKG commands to interact with a package manager debian distributions
 $dpkg -l   #lists installed packages
+$dpkg --get-selection  #also lists all installed packages
 $dpkg -S </path/to/file>   # Will display a package that the file belongs to
 $dpkg -L <package_name>    # List all the files in a package
-$dpkg -i <package_name.deb>     # Installs a package
+$dpkg -i <package_name.deb>  # Installs a package
+$dpkg --remove <packageName>
+$dpkg --purge <packageName>  #also remove all the configurations file for the package that are no longer needed
+
+#To check or find an installed package
+$which <packageName>
+$where is <packageName>
 
 #Changing shell
 $chsh #interactive
@@ -100,7 +129,10 @@ $sudo umount </mount point or path/to/device /dev/sdb1> # to unmount a filesyste
 $sudo fdisk /path/to/device </dev/sdb> #m => menue, n => new MBR partition; w => write the changes to disk; d => delete partition; g => GPT partition   
 $sudo mkfs.ext4 /dev/sdb1 # creates a filesystem of ext4 
  
-#Forming a RAID array
+ 
+ 
+ 
+**********************Forming a RAID array***********************************
 $sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1  # forming a software raid 1 array with mdadm
 $sudo mkfs.ext4 /dev/md0  # This will make a file system on the array itself
 $sudo mdadm --detail /dev/md0  #This is to check the status of the newly formed array
@@ -113,22 +145,73 @@ $sudo mdadm --detail /dev/md0  #This is to check the status of th enewly formed 
 $sudo mdadm --manage /dev/md0 --fail /dev/sdb1 # this is the command to mark the disc as failed
 $sudo mdadm --manage /dev/md0 --remove /dev/sdb1
 $sudo shutdown -h now
+
 ##After the machine is back up and the failed disk has been removed and added a new disk and partioned it only after these steps run the below command
 $sudo mdadm --manage /dev/md0 --add /dev/sdb1    #Add disk back to the RAID array 
 $sudo mdadm --detail /dev/md0 
 $cat /proc/mdstat  #to check degradation on any of the disks
+
 ##Destroying an array 
 $sudo umount /dev/md0   # first unmount the array 
 $sudo mdadm --stop /dev/md0  # to stop the array 
 $sudo mdadm --remove /dev/md0  # make sure to stop the array before attempting to remove it
 $sudo mdadm --zero-superblock /dev/sdb1
 $sudo mdadm --zero-superblock /dev/sdc1 
+
 ##Remove the array entry from the /etc/fstab 
 $sudo shutdown -h now 
+
 ##To verify the status that the array has been removed 
 $sudo mdadm --detail /dev/md0 
 $df -h 
 $sudo mount -t ext4 /dev/md0 /mnt/test   # this will fail since the array does not exist
+
+
+*****************************SAMBA Fileshare SMB*************************************
+$rpm -qi samba  #check to see if the package is already installed
+$yum search samba
+$yum deplist samba
+$yum install samba   #to install th package 
+$service smb status or $systemctl status smb   #to check the status of the service smb
+#To enable and start smb service
+$systemctl enable smb
+$systemctl start smb
+$systemctl status smb 
+$sudo service nmb status or $systemctl status nmb 
+$sudo systemctl list-unit-files | grep smb   #To check if a service is enbaled to load at boot
+#To turn on and off services on boot
+$sudo chkconfig <serviceName> off
+$sudo chkconfig <serviceName> on 
+#Make a smaba dir at the root dir
+$cd /
+$mkdir samba
+$ls -la | grep smaba 
+$ls -la ./samba
+
+#Make a example dir in the smaba dir 
+$cd ./samba
+$mkdir example 
+
+#Open up the samba configuration file in the /etc/samba dir
+$vi /etc/samba/smb.conf 
+#In the smb.conf file enter the following
+[example]
+         path = /samba/example
+		 browseable = yes
+		 writeable = yes
+		 guest ok = yes 
+#Configure firewall to allow service samba
+$firewall-cmd --permanent --zone=public --add-servce=samba 
+$firewall-cmd --reload  #Reloads the firewall
+#Set the permission for the directories recursively 
+$chmod -R 755 /samba/example 
+#Make sure selinux allows samba to share
+$sudo chcon -R -t samba_share_t /samba/example 
+#Add a samba user  
+$sudo smbpasswd -a cody 
+
+
+
 
 
 #The Hisstory 
