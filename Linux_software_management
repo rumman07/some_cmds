@@ -14,7 +14,9 @@
 *#subcommand to ask for status. Commands may require multiple subcommands to increasingly refine their scope. These subcommands must be provided in a specific order
 *
 *#Some commands may allow for optional arguments or require them to be specified. An example is the ls command. When a valid path is provided as an argument, such as ls ~, 
-*#the files within that directory are displayed. These arguments are often required and must be provided in a specific order.
+*#the files within that directory are displayed. These arguments are often required and must be provided in a specific order
+*
+*
 *
 *The yum command line utility is a package management program for those linux distributions that uses the RPM packages
 *The basics of run level
@@ -81,9 +83,42 @@ $dpkg --purge <packageName>  #also remove all the configurations file for the pa
 $which <packageName>
 $where is <packageName>
 
+
+###All About Environmental Variables
+$echo $BASH    #value=/usr/bin/bash 
+$echo $SHELL   #value=/bin/bash
+$echo $CPU     #spec to your system 
+$echo $DISPLAY  #The local video card monitoring
+$echo $ENV      #/etc/bash.bashrc
+$echo $EUID     #The UID of current user 
+$echo $HISTFILE  #~/.bash_history 
+$echo $HISTSIZE  #1000
+$echo $HOME      #current users home directory
+$echo $HOST
+$echo $HOSTNAME  #systems assigned hostname 
+$echo $LOGNAME   #username of current userName
+$echo $MAIL      #/var/spool/mai/username  OR /var/mail/username
+$echo $MANPTH
+$echo $OLDPWD    #Prior current directory 
+$echo $OSTYPE 
+$echo $PATH  #Prints the env variable the $PATH variable value
+$echo $PSI
+$echo $PWD
+$echo $USER
+$echo $USERNAME 
+#PATH=$PATH:/var/opt/   #Appaend a new path to the $PATH variable 
+$export PATH 
+$vim .bash_profile   #To make the PATH variable persistent after reboot and it to .bash_profile 
+$vim /etc/profile    #Global configuration file 
+$env  #Prints all the available enviromantal variables 
+$set  #Prints all the available enviromental variables 
+
+
 #Changing shell
+$echo $SHELL
 $chsh #interactive
 $chsh -s /path/to/shell #Non interactive the -s option sets the value
+
 
 ##All about Alias
 $alias invent="cd Desktop;mkdir dir1;touch file1;date;cal"
@@ -104,6 +139,7 @@ EOL
 ##Wheel group allows people in group wheel to run all commands
 ##Sudoers file could specify individual users can run what software on which machines 
 ##(the sudoers file can be shared between multiple systems) but by default centos has is it set up to where you simply just add a user to the wheel group and you're all set
+$sudo visudo #to edit the /etc/sudoers file
 
 #Permissions
 $sudo chmod <octo_value> <fileName>
@@ -221,6 +257,8 @@ $history <10 || any number> #Displays the give number of commands previously exe
 $vi ~/.bash_history #can manipulate the history file 
 $mv .bash_history bash_history #making the history file visible from hidden by removing the dot preceeding the filename
 $history -c #This will clear your history
+$export HISTFILESIZE=9999    #Change the history file size 
+$echo $HISTFILESIZE    #Shows the history file size 
 
 ##Opening a pdf file 
 $xdg-open <path/to/pdfFilename>
@@ -230,12 +268,57 @@ $sed -i '<line#>,<line#> d' <fileName>  # Deletes the line numbers from the file
 $sed -i '/PATTERN/ d' <fileName>    #Deletes the pattern from the file 
 $sed -i '/PATTERN/ !d' <fileName>    #Deletes everything else not matching the pattern from the file
 
-#Navigating the linux system and creating files and directory 
+
+#Shutting down and rebooting the system 
+$reboot #immediately shutdown the processes running in the background
+$sudo shutdown -r +10 && sudo shutdown -r now || sudo shutdown -r +0; sudo shutdown -r <+time/in/min>
+$sudo shutdown +60; sudo shutdown -h now
+$sudo shutdown -h +15 "The server is going down for maintenance in 15 mins. Please finish your work now."
+$sudo shutdown -c #cancel the shutdown operation
+$telinit 0; telinit 1; telinit 2; telinit 3; telinit 4; telinit 5; telinit 6 #to change the system run level
+$who -r #in order to find the current runlevel
+
+
+*******************************##################################
+***************Mastering the CommandLine*************************
+*******************************##################################
+$halt  #Will shutdown the linujx operating system only root user can do this
+$reboot  
+$init 0  #shutdown
+$init 6   #reboot 
+$shutdown --help 
+$exit  #terminate the current running session 
+$su username
+$su -   #will become the root user 
+$env   #shows enviroment variables on current user 
+$top 
+$clear 
+$whoami  #shows what user is logged in 
+$netstat   #Shows the status of the network
+$route     #To view routing table 
+$ifconfig 
+$ip addr   #Shows ipaddresses and MAC addresses 
+$uname   #Shows what kind of operating system we are using 
+$uname -s  #Displays the linux kernel name 
+$uname -n  #Displays the systems hostname 
+$uname -r  #Displays the linux kernel release number 
+$uname -v  #Displays the linux kernel version number
+$uname -m  #Displays the hardware architecture  
+$uname -p  #Displays the processor type 
+$uname -i  #Displays the hardware platform 
+$uname -o  #Displays the operating system 
+$uname -a  #Displays all the informations at once 
+
+###In Linux file name and directories are case sensitive
+$cd   #moves to the home folder 
 $cd / #root directory
 $cd ~ #home directory
 $cd - #takes you back to the last accessed directory
 $cd .. #changes to the parent directory of the current directory
 $ls   #showing you what is in that directory
+$ls -p  #Appends a / after the name of folders in a dir
+$ls -latrR
+$ls -R  #R=Recursive option to display a dir content recursively 
 $less #to page the content of a file or standard output
 $mkdir
 $rmdir
@@ -257,19 +340,6 @@ $cp -t /destination/directory/ file1 file2 file3 or <dir1 dir2 dir3>  #If you wa
 $rsync -avzP <dirname> </where/to/path> #enables you to see the progress and speed of transfer. a=>archive; v=>verbose; z=>compress; P=>progress
 $wget <url> -P <path/to/folder> #-P option specifies the path to download the file 
 $wget -i <path/to/url_link_file.txt> -P <path/to/destination/folder> #the -i option reads the input url from a text file
-
-#Shutting down and rebooting the system 
-$reboot #immediately shutdown the processes running in the background
-$sudo shutdown -r +10 && sudo shutdown -r now || sudo shutdown -r +0; sudo shutdown -r <+time/in/min>
-$sudo shutdown +60; sudo shutdown -h now
-$sudo shutdown -h +15 "The server is going down for maintenance in 15 mins. Please finish your work now."
-$sudo shutdown -c #cancel the shutdown operation
-$telinit 0; telinit 1; telinit 2; telinit 3; telinit 4; telinit 5; telinit 6 #to change the system run level
-$who -r #in order to find the current runlevel
-$sudo cat /etc/sudoers #Sudoers allows particular users to run various commands as the root user, without needing the root password.
-#By default the sudoers file is configured on Centos 7 to allow all members all users who are members of the wheel group to use sudo to do any thing that root can do. 
-$sudo visudo #to edit the /etc/sudoers file
-
 $groups cody #Shows all the groups the specified user is member of
 $man <command> #brings up the manual for thatparticular command 
 $date
