@@ -117,7 +117,7 @@ $knife role show <roleName>
 $knife cookbook create <cookbook_name>
 $knife supermarket show httpd | grep latest_version #gets the version information 
 
-#All the knife search command. If no search index is specified the default index is node
+#All the knife search command. If no search index is specified the default index is node  #Reference: https://docs.chef.io/knife_search.html 
 $knife search 'platform_family:rhel'
 $Knife search 'recipes:apache'
 $knife search 'recipes:apache\:\:websites'  
@@ -125,6 +125,8 @@ $knife search node 'platfor?:centos'
 $knife search '*:*' #pulls all the node registered with the chef server 
 $knife search '*:*' -a ipaddress 
 $knife search role 'role:web' -a run_list 
+$knife node show <nodeName> -a run_list, -a ipaddress  #This to show more than one attribute using the -a option 
+
 
 #Creating roles with knife
 $knife role create <rolename>
