@@ -30,6 +30,33 @@
 *
 */
 
+***************All about the MAN Command************************************'
+##The MAN page has 9 sections: 1)Executable programs and shell commands 2)System calls provided by the kernel 3)Library calls provided by the program library 
+##4)Device file (usually stored in /dev) 5)File formats 6)Games 7)Miscelaaneous(macro packages, conventions, and so on) 8)System administration commands (req root previleges)
+##9)kernel routines
+##You can switch between the section by simple passing the section  number like so: 
+$man 5 <cmdName>
+$whatis <cmdNAme>
+###MAN pages are organized like so: Name; Synopsis; Description; Options; Files; See Also; Bugs; History; Author
+$man -k <cmdName>  #searches for anything that has the cmdName mentioned in the documentation 
+$apropos <cmdName>  #searches for and displays cmdName mentioned in the documentation 
+$info info   #The new manpage
+$rpm -ql yum | grep README
+$find /usr/share/doc -name "*passwd*"
+$locate <cmdName>
+$whereis <cmdName>
+
+
+###Utilities to read different file formats:
+#File extensions .1-.9 - man, info, less 
+#File extensions .gz or .bx2 - use gunzip, bunzip2 to extract the files first then read with; less
+#File extensions .txt - less and any text edit vi, vim
+#FIle extension .html or .htm - any web browser
+#File extension .odt - Libre office, OpenOffice.org, any word processor app 
+#File extension .pdf - xpdf, AdobeReader 
+#File extension .tif, .png, .jpg - Gimp
+
+
 **************Installing Packages and Package Managers**********************
 /**
 *Packages actually rely on other programs in order to install the software. Binary packages are packages that have an executable built from source
@@ -317,7 +344,7 @@ $uname -a  #Displays all the informations at once
 $id -u -g -G <userName>   # -u is uid -g is group id -G is associated group id
 $id -nu -ng -nG  <username> #the -n option displays names instead of id numbers 
 ##You can show the real ID for the -g, -G and -u options instead of the effective ID by passing the -r option
-$id -r -u <username>
+$id -r -u <username>  #use the -r option to query the real id instead of the effective id 
 $id -r -u <username>
 
 ###In Linux file name and directories are case sensitive
@@ -379,68 +406,7 @@ sudo apt-get install git
 
 
 
-###Installing Ruby on Rails on CentOS 7, using rbenv**********************
-#Install rbenv, which we will use to install and manage our Ruby installation. Install the rbenv and Ruby dependencies with yum
-$sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
-#Now we are ready to install rbenv. The easiest way to do that is to run these commands, as the user that will be using Ruby
-$cd
-$git clone git://github.com/sstephenson/rbenv.git .rbenv
-$echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
-$echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
-$exec $SHELL
-$git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-$echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bash_profile
-$exec $SHELL    #This installs rbenv into your home directory, and sets the appropriate environment variables that will allow rbenv to the active version of Ruby
-#Now we're ready to install Ruby. Before using rbenv, determine which version of Ruby that you want to install. We will install the latest version, Ruby 2.2.1
-#As the user that will be using Ruby, install it with these commands
-$rbenv install -v 2.2.1
-$rbenv global 2.2.1
-#The global sub-command sets the default version of Ruby that all of your shells will use. If you want to install and use a different version, simply run the rbenv commands with a different version number
-#Verify that Ruby was installed properly with this command
-$ruby -v
-#It is likely that you will not want Rubygems to generate local documentation for each gem that you install, as this process can be lengthy. To disable this, run this command
-$echo "gem: --no-document" > ~/.gemrc
-#You will also want to install the bundler gem, to manage your application dependencies
-$gem install bundler
-#As the same user, install Rails 4.2.0 with this command
-$gem install rails -v 4.2.0
-#Whenever you install a new version of Ruby or a gem that provides commands, you should run the rehash sub-command. This will install shims for all Ruby executables known to rbenv, which will allow you to use the executables
-$rbenv rehash
-#Verify that Rails has been installed properly by printing its version, with this command
-$rails -v 
-#A few Rails features, such as the Asset Pipeline, depend on a Javascript runtime. We will install Node.js to provide this functionality.
-#Add the EPEL yum repository
-$sudo yum -y install epel-release
-#Then install the Node.js package
-$sudo yum install nodejs
-###Note: This will probably not install the latest release of Node.js, as Enterprise Linux does not consider it to be "stable". If you want to install the latest version, feel free to build it on your own
-###Congratulations! Ruby on Rails is now installed on your system
-###Testing the Ruby on Rails Installation 
-#If you want to make sure that your Ruby on Rails installation went smoothly, you can quickly create a test application to test it out. For simplicity, our test application will use sqlite3 for its database
-$cd ~
-$rails new testapp
-#Then move into the application's directory
-$cd testapp
-#Create the sqlite3 database
-$rake db:create
-#If you don't already know the public IP address of your server, look it up with this command
-$ip addr show enp0s3 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
-#Copy the IPv4 address to your clipboard, then use it with this command to start your Rails application: (substitute the highlighted part with the IP address)
-$rails server --binding=<server_public_IP>
-###If it is working properly, your Rails application should be running on port 3000 of the public IP address of your server. Visit your Rails application by going there in a web browser
-###http://server_public_IP:3000
-*******************You're now ready to start developing your new Ruby on Rails application. Good luck!****************************************************************************************
 
-
-###Install sublime Text******************
-#Install the gpg key 
-$sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-#Stable 
-$sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-#Dev
-$sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/dev/x86_64/sublime-text.repo
-#Update yum and install sublime text
-$sudo yum install sublime-text
 
 
 # Copies the contents of the id_rsa.pub file to your clipboard
