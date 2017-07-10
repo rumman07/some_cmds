@@ -174,11 +174,12 @@ $knife tag list devops_prod1
 $knife cleanup versions  #List all the cookboks are in the chef server but not being used 
 $knife cleanup versions -D   #first a backup of the version and then proceed to delete it
 $knife cleanup -B (--backup)
-$knife status -H (--hide-healthy)
-$knife status --hide-by-mins <MINS=30>
+
 $knife runs list <nodeName>   # return a list of chef-client runs by organization or by node
 $knife runs list   #returns a list of every chef-client run that took place across every single node in the organization
 $knife runs show <runID>  #returns the details for a chef-client run
+$knife status -H (--hide-healthy)
+$knife status --hide-by-mins <MINS=30>
 $r = Get-NodeStatus -Node pld-awurxms01.walgreens.com
 $r
 $s = Get-RunStatus $r.RunId
