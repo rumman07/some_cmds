@@ -114,6 +114,34 @@ $which <packageName>
 $where is <packageName>
 
 
+*****************The Linux Filesystem*******************************************
+/**
+*Where the data is stored on a storage device within a certain manner: data is organized and easily located; Data can be saved in a persistent manner; Data integrity is preserved; Data can be quickly retrieved for a user in a later point in time 
+*The linux file system uses a FileSystem Hierarchy Standard (FHS) hierarchy structure to organize data  
+*Linux systems have a standard in which at the root directory has several of the same sub directories in a certain order or fashion 
+*FHS keeps all the linux distributions in line so end user can know where certain types of data is stored within the linux file systems 
+*/dev stores two types of device files: Character oriented device file sends or receive data sequentially one character at a time ex: printer, mice other sorts of peripheral devices
+*the second sort of device stored within the /dev folder is the block oriented device files. These are files that manage data what is known as blocks ex: actual hard drive, usb, etc. Block devices supports random access to data stored on them  
+*Physical hardware on any linux system is addressed by application and services running on the system through actual files that live in the /dev folder
+*/etc folder contains text based configuration files used by the system as well as services running in the system
+*/etc/aliases  #Contains a table used to redirect all to local users 
+*/etc/exports  #Configured file systems to be exported to remove NFS clients 
+*/etc/fstab    #lists the partitions and file systems that will be automatically mounted when we boot our linux system   
+*/etc/ftpusers #Controls users access to FTP service running on a linux system 
+*/etc/group    #Contains local group definitions 
+*/etc/grub.conf #Contains configuration parameters for the init process 
+*/etc/hosts    #This contains a list of hostname to IP address mappings that we can use to resolve certain hostnames 
+*/etc/inittab  #Contains configuration paramemters for the init process 
+*/etc/init.d   #This is a sub directory that contains startup scripts and services 
+*/etc/rc.d/init.d  #Red Hat or CentOS based systems startup scripts and services 
+*/etc/passwd   #This is our linux systems user accounts file 
+*/etc/resolv.conf  #This is where we specify what DNS server and domain suffix that our system is going to use 
+*/etc/x11      #Has the X windows configuration files 
+*/
+
+
+
+
 ###All About Environmental Variables
 $echo $BASH    #value=/usr/bin/bash 
 $echo $SHELL   #value=/bin/bash
