@@ -138,8 +138,10 @@ $where is <packageName>
 */etc/resolv.conf  #This is where we specify what DNS server and domain suffix that our system is going to use 
 */etc/x11      #Has the X windows configuration files 
 */
-
-
+$touch -c  #c option tells touch not to create a new filename if one doesn't already exists 
+$touch -d "February 1 2015" fileName.txt  #To chage the full date of the timestamp of the file use the -d option
+$mkdir -m <directoryName>  #Use to set the octo value of the folder 
+$mkdir -p <directoryName>  #Creates the parent folder of the child directory if it does not already exists 
 
 
 ###All About Environmental Variables
