@@ -142,6 +142,44 @@ $touch -c  #c option tells touch not to create a new filename if one doesn't alr
 $touch -d "February 1 2015" fileName.txt  #To chage the full date of the timestamp of the file use the -d option
 $mkdir -m <directoryName>  #Use to set the octo value of the folder 
 $mkdir -p <directoryName>  #Creates the parent folder of the child directory if it does not already exists 
+###Globbibg Searching with wilcards
+$ls *.txt
+$ls ???.txt 
+$ls [a-z]*.txt 
+
+
+*********************************Tape Archive (TAR)**************************************************************************
+#`tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive
+#A linux utility that archive things. It does not compress or compact files. It sticks all your files together into one file 
+$tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar
+$tar -tvf archive.tar   # List all files in archive.tar verbosely
+$tar -xf archive.tar    # Extract all files from archive.tar
+# -C, --directory=DIR        change to directory DIR
+$sudo tar -xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+#for the tar command the order of the flags -xvf matters you cannot put f in the begining
+#We can also call on the compression algorithm types when using the tar utility with option flags
+#tar -zcf (gzip)  will produce file.tar.gz or file.tgz in one pass the extensions are synonimous just different naming convention 
+#tar -jcf (bzip2) will produce file.tar.bz2 or file.tb2 in one pass the extensions are synonimous just different naming convention
+$tar -zcf nameoffolder.tgz foldername 
+$tar -zxvf nameoffolder.tar.gz  #to uncompress and unarchive in one pass
+
+###Compression tools: Gzip, Bzip2, Zip
+$gzip nameoffolder.tar   #to compress a file
+$gunzip nameoffolfer.tar.gz  #to uncompress a file
+ 
+###Bzip2 does a better job than Gzip in compressing a file since it has a better algorithm of compressing a file than gzip
+$yum install -y bzip2  #To install bzip2 
+$bzip2 nameoffolder.tar  #to compress a file 
+$bunzip2 nameoffolder.tar.bz2 #to uncompress a file 
+
+###Zip is the only tool that can archive and compress at once most commonly used in the Windows operating system 
+$yum install -y zip  $To install zip 
+$zip <nameofzip.zip> filename.txt   #to compress a file 
+$zip -r nameoffolder.zip foldertozip  #-r stands for recursive which recursively zips all the content of the folder 
+$yum install -y unzip  #To install unzip 
+$unzip <nameofzip.zip> #to uncompress a file 
+$unzip -r nameoffolder.zip  #-r recursively unzip 
+$unzip -l nameoffolder.zip  #list the content of the archive folder 
 
 
 ###All About Environmental Variables
@@ -476,13 +514,7 @@ systemctl disable firewalld
 ssh-keygen -t rsa -b 2048-f ~/.ssh/azure
 ssh -i ~/.ssh/azure <user_name>@<ip_address>
 
-######TAR
-#`tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive.
-$tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar
-$tar -tvf archive.tar   # List all files in archive.tar verbosely
-$tar -xf archive.tar    # Extract all files from archive.tar
-# -C, --directory=DIR        change to directory DIR
-$sudo tar -xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+
 
 
 
