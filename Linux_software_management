@@ -436,6 +436,16 @@ $sudo #gives you super user previleges
 $cat dmesg | less
 $cat dmesg | grep VGA #the grep command search for only the keyword and prints it out
 $grep <keyword> /path/to/file
+$grep -i <keywordsearchstring> /path/to/file  #the -i option ignores case sensitivity 
+$grep -in <keywordsearchstring> /path/to/file  #the -n opton prints the line numbers where the result is found
+$sort fileName.txt  #sorts text in a file alphabetically 
+$sort -r fileName.txt  #sorts text in a file in the reverse alphabetical order 
+$sort -n fileName.txt   #the -n option sorts numeric value in a file 
+$cut -c2-4 fileName.txt  #cuts the content of the file by the column number
+$cut -c2,4 fileName.txt  #cuts the content of column 2 and 4 only 
+$cut -d" " -f2-4 fileName.txt 
+$wc -w fileName.txt    #counts the number of words in a file 
+$wc -c fileName.txt    #counts the number of characters in a file  
 $mv <filename> </where/to/path> #like cut in windows moves the file into new location and removes the original
 mv -t /destination/directory/ file1 file2 file3  #If you want to move or copy all of the files to the same directory, you can use the -t option of mv, type/supply each filename as an argument, as many files as arguments as you like
 $cp <filename> </where/to/path> #make a copy of the file i.e. keeps the original
@@ -456,6 +466,10 @@ $sudo dhclient #assigns an ipaddress
 $sudo dhclient -r #releases an ipaddress
 $getfacl <filename>
 $sudo setfacl -m user:sarah:rwx null
+$find .  #finds everything in the current directory 
+$find . -type d  #only going to return things that are directory within the current directory
+$find . -type f  #only going to return things that are file within the current directory 
+$find . -name "file.*"
 $find / -perm /4000 -ls
 $find / -perm +4000 -ls #older version
 $sudo chgrp <groupName> <fileName>
