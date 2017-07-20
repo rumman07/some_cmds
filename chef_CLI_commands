@@ -100,6 +100,8 @@ $chef generate template <path_to_cookbook> <name_of_template_without_.erb>
 $sudo chef-client -z -r "recipe[cookbook1],recipe[cookbook2],recipe[cookbook3]"
 $chef generate file cookbooks/<cookbook_name> <name_of_file>
 $chef-client -W | chef-client --why-run #the -W options runs the chef-client as it would except prevents it from actualling enforcing the configuration on the node
+$chef-client -o "recipe[mycookbook@0.1.1]"  #-o RUN_LIST_ITEM, --override-runlist RUN_LIST_ITEM Replace the current run-list with the specified items. This option will not clear the list of cookbooks (and related files) that is cached on the node. This option will not persist node data at the end of the client run.New in Chef Client 12.0
+
 
 
 #knife bootstrapping a node
@@ -112,7 +114,9 @@ $knife node run_list add <nodeName_N> 'recipe[<cookbookname>::<recipename>]' -a 
 $knife node run_list remove <nodeName-N> 'recipe[<cookbookname>::<recipename>],recipe[<cookbookname>]'
 $knife node run_list add web1 "recipe[workstation],recipe[apache]"
 $knife node run_list set load-balancer "recipe[workstation],recipe[apache]"
+$knife node run_list set load-balancer "recipe[cookbook_name::recipe_name@cookbook_version]"  #explicitly specify a cookbook version to use in a nodes run_list
 $knife cookbook upload <cookbook_name>
+$knife cookbook delete <cookbok>@<version>   #to remove specific version of cookbook
 $knife role show <roleName>
 $knife cookbook create <cookbook_name>
 $knife supermarket show httpd | grep latest_version #gets the version information 
