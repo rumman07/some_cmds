@@ -147,6 +147,13 @@ $ls *.txt
 $ls ???.txt 
 $ls [a-z]*.txt 
 
+**************************Standard bash file Descriptor**********************************************************************
+There are three file descriptors 
+stdin(0)  #standard input
+stdout(1) #standard output 
+stderr(2) #standard error 
+
+
 
 *********************************Tape Archive (TAR)**************************************************************************
 #`tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive
@@ -182,7 +189,7 @@ $unzip -r nameoffolder.zip  #-r recursively unzip
 $unzip -l nameoffolder.zip  #list the content of the archive folder 
 
 
-###All About Environmental Variables
+******************************All About Environmental Variables*******************************************************************
 $echo $BASH    #value=/usr/bin/bash 
 $echo $SHELL   #value=/bin/bash
 $echo $CPU     #spec to your system 
@@ -254,7 +261,7 @@ $vi /etc/fstab   #make entry in the /etc/fstab to make mount persistent
 #The structure of data in /etc/fstab => UUID  /mountpoint  filesystem type   defaults 0 0
 #Executing a directory is being able to cd into that directory and able to see its contents 
 
-#Filesystem
+******************************PARTIONING HARDDRIVE AND CREATING FILESYSTEM AND MOUNTING A DRIVE*****************************************************************
 $df -h # lists the file system size in gigabytes and megabytes
 $sudo fdisk -l  #lists all disk all partitions all file systems which are technically available to be mounted but may or may not be mounted currently
 $sudo mount -t <filesystemtype> /dev/device_name(sdb1) <mount_point /mnt/test>  # to mount an available storage
@@ -262,8 +269,6 @@ $sudo parted print all # shows the file system type not shown by the fdisk utili
 $sudo umount </mount point or path/to/device /dev/sdb1> # to unmount a filesystem use the umount command 
 $sudo fdisk /path/to/device </dev/sdb> #m => menue, n => new MBR partition; w => write the changes to disk; d => delete partition; g => GPT partition   
 $sudo mkfs.ext4 /dev/sdb1 # creates a filesystem of ext4 
- 
- 
  
  
 **********************Forming a RAID array***********************************
@@ -376,6 +381,20 @@ $sudo shutdown -c #cancel the shutdown operation
 $telinit 0; telinit 1; telinit 2; telinit 3; telinit 4; telinit 5; telinit 6 #to change the system run level
 $who -r #in order to find the current runlevel
 
+
+
+
+*************************************REGEX************************************************************************
+*  #Matches any character any number of occurence 
+.  #Any single character 
+?  #Matches zero or one of the proceeding characters 
+^  #Matches expression if it appears at the begining 
+$  #Matches expression if it appears at the end 
+[nnn]  #Matches any one character between the braces 
+[^nnn] #Matches any expression that doesn't contain any one of the characters specified between the braces  
+[n-n]  #Matches any single character 
+[1-10] #Any character between 1 and 1 or 0 
+[ser]  #Matching s, and then e, and then r
 
 *******************************##################################
 ***************Mastering the CommandLine*************************
