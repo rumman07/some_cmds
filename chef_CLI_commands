@@ -193,6 +193,12 @@ $Get-PrettyErrorInfo -ErrorDetails $s.ErrorDetails
 $Import-Module ..\..\Documents\WindowsPowerShell\Modules\Functions-ChefHelpers\Functions-ChefHelpers.psm1 -Force
 $Get-PrettyErrorInfo -ErrorDetails $s.ErrorDetails
 
+*******************************Converting Knife output to PSObject*************************************************************
+$a = PSknife status -H -F json
+$b = $a -Join "`n" | ConvertFrom-Json 
+$b | Get-Member 
+********************************************************************************************************************************
+
 #some ohai commands
 ohai
 ohai ipaddress
