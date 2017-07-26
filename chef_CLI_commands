@@ -213,7 +213,7 @@ ohai hostname
 ohai memory
 ohai memory/total
 ohai cpu/0/mhz
-
+ohai fqdn 
 **********Running Test Kitchen****************************
 #Install the docker test kitchen plugin
 $chef exec gem install kitchen-docker 
@@ -235,6 +235,10 @@ $kitchen exec -c whoami #prints the name of the current user
 $kitchen exec -c 'ip a s'  #if the command is not a single word 'enclose it within single quote'
 $vi test/smoke/default/default_test.rb
 
+#Running unit test rspec
+$chef exec rspec spec/unit/recipes/install_pip_spec.rb
+$rspec --init   #to enable color 
+$cat .rspec 
 
 #generate secret keys
 $ openssl rand -base64 512 | tr -d '\r\n' > secret-key
