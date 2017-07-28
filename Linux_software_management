@@ -457,6 +457,7 @@ $cat dmesg | grep VGA #the grep command search for only the keyword and prints i
 $grep <keyword> /path/to/file
 $grep -i <keywordsearchstring> /path/to/file  #the -i option ignores case sensitivity 
 $grep -in <keywordsearchstring> /path/to/file  #the -n opton prints the line numbers where the result is found
+$grep 'wag_ilmt_redhat_isolate\|wag_ilmt_suse_isolate'  #To grep multiple values use '\|' within single quote 
 $sort fileName.txt  #sorts text in a file alphabetically 
 $sort -r fileName.txt  #sorts text in a file in the reverse alphabetical order 
 $sort -n fileName.txt   #the -n option sorts numeric value in a file 
