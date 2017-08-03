@@ -56,6 +56,7 @@ $rm -rf chef-starter.zip
 $sudo knife ssl fetch
 $knife bootstrap <ipaddress> --ssh-user <username> -P <password> --sudo -N <fqdn>
 
+
 #Using git and github with chef-repo
 $sudo chown user.user -R .
 $git init
@@ -107,6 +108,7 @@ $chef-client -o "recipe[mycookbook@0.1.1]"  #-o RUN_LIST_ITEM, --override-runlis
 
 
 #knife bootstrapping a node
+$knife bootstrap fqdn -x <username> -P <password> -N <nodeName> 
 $knife bootstrap <ipaddress> -x <user> -P <password> -N <nodeName> --sudo
 $knife bootstrap localhost --ssh-port 2222 --ssh-user vagrant --sudo --identity-file <path/to/file/private_key> -N <name_of_node>
 #Knife commands
