@@ -120,7 +120,7 @@ $knife node run_list add web1 "recipe[workstation],recipe[apache]"
 $knife node run_list set load-balancer "recipe[workstation],recipe[apache]"
 $knife node run_list set load-balancer "recipe[cookbook_name::recipe_name@cookbook_version]"  #explicitly specify a cookbook version to use in a nodes run_list
 $knife cookbook upload <cookbook_name>
-$knife cookbook delete <cookbok>@<version>   #to remove specific version of cookbook
+$knife cookbook delete <cookbook>@<version>   #to remove specific version of cookbook
 $knife role show <roleName>
 $knife cookbook create <cookbook_name>
 $knife supermarket show httpd | grep latest_version #gets the version information 
