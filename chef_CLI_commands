@@ -1,4 +1,6 @@
-/**Versionable - Testable - Repeatable - Collaborative
+/**To install chefdk on OSX and Linux run the following command: 
+*curl -L https://www.opscode.com/chef/install.sh | sudo bash 
+*Versionable - Testable - Repeatable - Collaborative
 *A resource statement defines the desired state of the configuration, a resource maps to a "provider" which defines
 *the steps to achieve that desired state of configuration.
 *An application cookbook typically contains multiple recipes, where each recipe configures one part of the system. The default recipe, default.rb, lists these recipes in 
@@ -12,7 +14,15 @@
 *The <%= %> notation indicates placeholders that are replaced when Chef applies the template
 *
 *Because Chef loads dependent cookbooks first, the values specified in the current cookbook's attributes file will overwrite any existing attribute values
-*
+*Ohai is used to detect attributes on a node and report them to chef client at the start of every chef client run as well as at the end of every
+*chef client run. It is required for the chef client to run because it builds the node object 
+*Chef client is an agent that runs locally on every single nodes that is registered with the chef server 
+*Policy is a collection of system configurations that you define ex: roles, data bags, environments. The policy states the state that 
+*each resources should be in but not how to get there. Chef-client will pull the policy and configure the node so that it matches the 
+*state of the policy 
+* Resources: Defines the desired state for a single configuration item present on a node that is under management by chef. Does the 
+*configuration on a node and maps to providers. Resources represent a piece of the system and its desired state
+*When chef client is run on a node the resource is executed by the provider which is handled by chef and the OS itself  
 */
 
 #In the node in client.rb adding the info log level configuration
