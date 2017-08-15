@@ -2,6 +2,15 @@
 *$export EDITOR=$(which vim)
 *comment
 * plink -ssh wagsadmin@pln-awuchef01.walgreens.com
+*When the system boots, typically one process called the init process starts up the /sbin/init that in turn manages child processes 
+*Memory leak: when the coding of a program request memory from the kernel and then fails to return that memory when it finished using it
+ps u U
+ps -u user
+ps -aux | grep
+ps -ax | grep 
+top => h ? k r p m 
+free  #generates a report on the system total memory status 
+free -h 
 *
 *$command FLAGS/OPTIONS/SUBCOMMANDS/ARGUMENTS  # Basic structure of commands
 *command: "what to do?"; options: "How to do it?"; arguments" "What to do with it"
