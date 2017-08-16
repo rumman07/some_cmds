@@ -4,13 +4,7 @@
 * plink -ssh wagsadmin@pln-awuchef01.walgreens.com
 *When the system boots, typically one process called the init process starts up the /sbin/init that in turn manages child processes 
 *Memory leak: when the coding of a program request memory from the kernel and then fails to return that memory when it finished using it
-ps u U
-ps -u user
-ps -aux | grep
-ps -ax | grep 
-top => h ? k r p m 
-free  #generates a report on the system total memory status 
-free -h 
+*
 *
 *$command FLAGS/OPTIONS/SUBCOMMANDS/ARGUMENTS  # Basic structure of commands
 *command: "what to do?"; options: "How to do it?"; arguments" "What to do with it"
@@ -162,6 +156,22 @@ stdin(0)  #standard input
 stdout(1) #standard output 
 stderr(2) #standard error 
 
+
+******************************************Logging*********************************************************
+vim /etc/rc.d/rc.local  #This is the config file location where you can create custom log files
+dmesg > /var/log/dmesg  #Adding this line to rc.local config file it will log dmesg log to this filename dmesg after reboot 
+touch /var/lock/subsys/local 
+
+
+
+**********************************************Processes**********************************************************************
+ps u U username 
+ps -u username --forest
+ps -aux | grep
+ps -ax | grep 
+top => h ? k r p m 
+free  #generates a report on the system total memory status 
+free -h 
 
 
 *********************************Tape Archive (TAR)**************************************************************************
@@ -647,4 +657,23 @@ $sudo reboot
 ###Virtualbox guest edition doesnt Install. Remedy in order to install the guest edition in virtualbox which will give enhanced virtual hardware 
 ###capabilities we need first need to make sure or install the kernel header
 $yum install kernel-devel
-$yum install gcc*   
+$yum install gcc*  
+
+*****************************************************Networking**********************************************************************
+/etc/resolv.conf   #(FILE) this is where our DNS server information is stored 
+$route  #the route command is always going to show the default location that our PC is always going to use to get to the outside network. Shows the route table 
+#Adding a route to the route table via the route command
+$route add -net <ipaddress> netmask <255.255.255.0> gw <10.10.30.1> 
+#Deleting a route from the route table via the route command 
+$route del -net <ipaddress> netmask <255.255.255.0> gw <10.10.30.1>
+#Add default gateway or router for our network to out linux machine 
+$route add default gw <10.10.30.1/address>
+$ping 
+$nestat      
+$netstat -a  # Lists all listening and non listening sockets in our linux machine 
+$nestat -i   #Displays stats of our network interfaces  
+$netstat -l  #Lists just the listening sockets
+$netstat -s  #Displays a summary for each protocols
+$netstat -r  #Displays the routing table 
+$traceroute <destination_hostname or ip address>  #Traces the route a packet actually takes or traverses through routers to arrive at its destination  
+$dig www.linuxacademy.com 
