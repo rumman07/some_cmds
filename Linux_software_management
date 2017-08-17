@@ -257,13 +257,49 @@ cat >(filename) <<EOL
 >here
 EOL 
 
-#Sudoers file
+************************************Sudoers file***********************************************************
 ##Sudoers allows particular users to run various commands as the root user, without needing the root password
 ##By default the sudoers file is configured in Centos7 to allow all members all users who are members of the wheel group to use sudo to do anything that root can do
 ##Wheel group allows people in group wheel to run all commands
 ##Sudoers file could specify individual users can run what software on which machines 
 ##(the sudoers file can be shared between multiple systems) but by default centos has is it set up to where you simply just add a user to the wheel group and you're all set
 $sudo visudo #to edit the /etc/sudoers file
+
+$finger  #Shows infromation on user account within the linux filesystem
+$yum install -y finger 
+$pwck   #to verify /etc/passwd and /etc/shadow are in sync 
+$pwconv #adds missing users from /etc/passwd to /etc/shadow
+$w  #The w command shows information about users currently on the machine and their processes 
+$who 
+$who -b   #shows the last boot time of our linux machine 
+$who -m   #gets the hostname and user associated with it 
+$who -r   #shows the current run-level for the user 
+$who -q   #shows the number of users logged into the machine 
+$who -a   #shows all the information at once 
+$last <user>     #to see what the linux user last activity was 
+
+#User IDs
+###To find a user’s UID (user ID) or GID (group ID) and other information in Linux/Unix-like operating systems, use the id command
+#The syntax is: id [options] [UserNameHere]
+$id -u -g -G <userName>   # -u is uid -g is group id -G is associated group id
+$id -nu -ng -nG  <username> #the -n option displays names instead of id numbers 
+##You can show the real ID for the -g, -G and -u options instead of the effective ID by passing the -r option
+$id -r -u <username>  #use the -r option to query the real id instead of the effective id 
+$id -r -u <username>
+
+##Useradd 
+#The default settings of the useradd utility is located at 
+$vi /etc/default/useradd
+$useradd -D   #Prints out the user default configurations 
+#/etc/login.defs  #This file contains default values for /etc/shadow and /etc/default/useradd 
+#/etc/skel  #When we use the useradd command it copies directories and files that live in the skel dir to the newly created user home dir 
+#The passwd utility to change a user's existing password 
+$passwd -S <username>   #Shows the settings of the password for that particular user. Shows when password was last changed 
+$man passwd 
+$usermod -l jsmith -c "Jennifer Smith" janniston   #Change the username and the full name of the current user janniston 
+$userdel jsmith   #to delete a user 
+$userdel -r jsmith  #-r flag deletes the user home folder also 
+
 
 #Permissions
 $sudo chmod <octo_value> <fileName>
@@ -385,6 +421,8 @@ $echo $HISTFILESIZE    #Shows the history file size
 ##Opening a pdf file 
 $xdg-open <path/to/pdfFilename>
 
+
+
 ##############The magic of SED*******************************
 $sed -i '<line#>,<line#> d' <fileName>  # Deletes the line numbers from the file 
 $sed -i '/PATTERN/ d' <fileName>    #Deletes the pattern from the file 
@@ -446,14 +484,6 @@ $uname -p  #Displays the processor type
 $uname -i  #Displays the hardware platform 
 $uname -o  #Displays the operating system 
 $uname -a  #Displays all the informations at once 
-
-###To find a user’s UID (user ID) or GID (group ID) and other information in Linux/Unix-like operating systems, use the id command
-#The syntax is: id [options] [UserNameHere]
-$id -u -g -G <userName>   # -u is uid -g is group id -G is associated group id
-$id -nu -ng -nG  <username> #the -n option displays names instead of id numbers 
-##You can show the real ID for the -g, -G and -u options instead of the effective ID by passing the -r option
-$id -r -u <username>  #use the -r option to query the real id instead of the effective id 
-$id -r -u <username>
 
 ###In Linux file name and directories are case sensitive
 $cd   #moves to the home folder 
@@ -522,30 +552,8 @@ $chown bob:group2 file2  #Thus, for example, the following would change the owne
 
 
 
-#installing updated version of git
-sudo apt-add-repository ppa:git-core/ppa
-sudo apt-get updated
-sudo apt-get install git
 
 
-
-
-
-
-# Copies the contents of the id_rsa.pub file to your clipboard
-clip < ~/.ssh/id_rsa.pub
-pbcopy < ~/.ssh/id_rsa.pub
-
-#install ansible
-sudo apt-get install ansible
-
-#Generating ssh key pair
-ssh-keygen
-echo 'public_key' > authorized_keys
-ssh-agent bash
-ssh-add .ssh/id_rsa
-#ping the machine
-ansible -i hosts -u root -m ping all 
 
 #Copying a directory from one linux machine to another linux machine via ssh
 scp -r <directory> <username>@<targethost>:<targetdir>
