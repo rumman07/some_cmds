@@ -306,8 +306,16 @@ ssl_ca_file "/etc/chef/trusted_certs/
 	
 	
 	
-	
-	
+*********************************Deleting node from the chef server**********************************************
+#Bootstrapping a node not only installs Chef on that node, but creates a client object on the Chef server as well. Running the Chef client on your node 
+#uses the client object to authenticate itself against the Chef server on each run. Additionally, to registering a client, a node object is created on 
+#the Chef server. The node object is the main data structure, which you can use to query node data inside your recipes
+
+#Step1: Delete the node object: 
+$knife node delete --yes node_name 
+
+#Step2: Delete the client object: 
+$knife client delete --yes my_node 
 	
 	
 	
