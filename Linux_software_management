@@ -149,7 +149,10 @@ $mkdir -p <directoryName>  #Creates the parent folder of the child directory if 
 $ls *.txt
 $ls ???.txt 
 $ls [a-z]*.txt 
-
+#On directories, X means that we can cd (change directories) in to it 
+#On files, X means you can execute it 
+$chown username.groupname filename    #To change the ownership of a file we can use the chown command 
+$ln -s <path/to/file> <link_name>     #Creating symbolic link 
 **************************Standard bash file Descriptor**********************************************************************
 There are three file descriptors 
 stdin(0)  #standard input
@@ -287,9 +290,8 @@ $id -nu -ng -nG  <username> #the -n option displays names instead of id numbers
 $id -r -u <username>  #use the -r option to query the real id instead of the effective id 
 $id -r -u <username>
 
-##Useradd 
-#The default settings of the useradd utility is located at 
-$vi /etc/default/useradd
+###Useradd 
+$vi /etc/default/useradd   #The location of default settings of the useradd utility
 $useradd -D   #Prints out the user default configurations 
 #/etc/login.defs  #This file contains default values for /etc/shadow and /etc/default/useradd 
 #/etc/skel  #When we use the useradd command it copies directories and files that live in the skel dir to the newly created user home dir 
@@ -299,6 +301,17 @@ $man passwd
 $usermod -l jsmith -c "Jennifer Smith" janniston   #Change the username and the full name of the current user janniston 
 $userdel jsmith   #to delete a user 
 $userdel -r jsmith  #-r flag deletes the user home folder also 
+$usermod -l <new_username> <old_username>   #to change or modify the user name 
+
+
+###Groups 
+#With groups we can apply permission to the group level and then we can apply those permision to the group and then make all the users need 
+#the same level of access members of that group 
+$/etc/group   #This is the config file 
+$groupadd -g -p -r <group_name>   #to add a new group; g flag specifies the gid; p for password; r for create a system group 
+$groupmod 
+$groupdel 
+
 
 
 #Permissions
