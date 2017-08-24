@@ -137,6 +137,10 @@ $knife supermarket show httpd | grep latest_version #gets the version informatio
 
 
 
+#Knife Exec Commands
+$knife exec -E "nodes.find('recipes:wag_ilmt'){|n| puts n.name}"
+
+
 #All the knife search command. If no search index is specified the default index is node  #Reference: https://docs.chef.io/knife_search.html 
 $knife search 'platform_family:rhel'
 $Knife search 'recipes:apache'
