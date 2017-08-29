@@ -142,7 +142,7 @@ $where is <packageName>
 */etc/x11      #Has the X windows configuration files 
 */
 $touch -c  #c option tells touch not to create a new filename if one doesn't already exists 
-$touch -d "February 1 2015" fileName.txt  #To chage the full date of the timestamp of the file use the -d option
+$touch -d "February 1 2015" fileName.txt  #To change the full date of the timestamp of the file use the -d option
 $mkdir -m <directoryName>  #Use to set the octo value of the folder 
 $mkdir -p <directoryName>  #Creates the parent folder of the child directory if it does not already exists 
 ###Globbibg Searching with wilcards
@@ -153,6 +153,10 @@ $ls [a-z]*.txt
 #On files, X means you can execute it 
 $chown username.groupname filename    #To change the ownership of a file we can use the chown command 
 $ln -s <path/to/file> <link_name>     #Creating symbolic link 
+$ln -s /webroot/home/httpd/test.com/index.php /home/vivek/index.php  #For example create a softlink for /webroot/home/httpd/test.com/index.php as /home/vivek/index.php
+$ls -l file1 link1  #To verify new soft link run
+
+
 **************************Standard bash file Descriptor**********************************************************************
 There are three file descriptors 
 stdin(0)  #standard input
@@ -337,7 +341,22 @@ $sudo parted print all # shows the file system type not shown by the fdisk utili
 $sudo umount </mount point or path/to/device /dev/sdb1> # to unmount a filesystem use the umount command 
 $sudo fdisk /path/to/device </dev/sdb> #m => menue, n => new MBR partition; w => write the changes to disk; d => delete partition; g => GPT partition   
 $sudo mkfs.ext4 /dev/sdb1 # creates a filesystem of ext4 
- 
+
+
+$sudo lshw -C disk #shows all the disks and what type of disks currently associated with the server
+$fdisk -l | less
+$fdisk /dev/sdc
+$mkfs -t ext4 /dev/sdc1
+$sudo mkdir /datadrive
+$mount /dev/sdc1 /datadrive 
+$mount
+$df -h
+$blkid #to find out the uuid of the disk
+$umount /datadrive(mountpoint) #to unmount
+$mount /datadrive (mountpoint) #to mount
+$chmod go+w /datadrive #giving write permission for group and other to the directory
+$touch test.file #to create a file test.file
+$sudo passwd root #setting password for the root account
  
 **********************Forming a RAID array***********************************
 $sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1  # forming a software raid 1 array with mdadm
@@ -421,7 +440,7 @@ $sudo smbpasswd -a cody
 
 
 
-#The Hisstory 
+#The History 
 $history #show all the command you executed on the system
 $!<command_number> #executes the command by typing in the corresponding number to the command displayed by the history command output
 $history <10 || any number> #Displays the give number of commands previously executed. 
