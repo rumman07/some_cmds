@@ -308,6 +308,7 @@ driver:
 ###In the /etc/chef/client.rb #add the following 
 node_name "the name of the node"
 ssl_ca_file "/etc/chef/trusted_certs/"	
+chef_server_url "plin-w2cf0404.walgreens.com"   --change it to this from ipaddress: 172.31.207.210
 	
 	
 	
