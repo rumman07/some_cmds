@@ -172,6 +172,7 @@ touch /var/lock/subsys/local
 
 
 **********************************************Processes**********************************************************************
+ps -Aef | grep -i bes
 ps u U username 
 ps -u username --forest
 ps -aux | grep
@@ -741,3 +742,4 @@ $netstat -s  #Displays a summary for each protocols
 $netstat -r  #Displays the routing table 
 $traceroute <destination_hostname or ip address>  #Traces the route a packet actually takes or traverses through routers to arrive at its destination  
 $dig www.linuxacademy.com 
+$nslookup <short_name>
