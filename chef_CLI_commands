@@ -5,7 +5,7 @@
 *the steps to achieve that desired state of configuration.
 *An application cookbook typically contains multiple recipes, where each recipe configures one part of the system. The default recipe, default.rb, lists these recipes in 
 *the order needed to build your application or service.
-*
+*An attribute is the specific detail about the node. An Attribute allows us to define information about something 
 *In Chef code, you'll often see the ::File notation. The colon :: notation specifies use of the core Ruby File class
 *The Chef::Resource::File class also exists to implement the file resource
 *
