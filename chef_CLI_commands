@@ -7,6 +7,8 @@
 *the order needed to build your application or service
 *
 *An attribute is the specific detail about the node. An Attribute allows us to define information about something 
+*Attribute levels of precedence : Attribute file; Node/recipe; Environment; role 
+*default; force_default; normal; override; force_override; automatic 
 *
 *In Chef code, you'll often see the ::File notation. The colon :: notation specifies use of the core Ruby File class
 *The Chef::Resource::File class also exists to implement the file resource
@@ -25,6 +27,9 @@
 * Resources: Defines the desired state for a single configuration item present on a node that is under management by chef. Does the 
 *configuration on a node and maps to providers. Resources represent a piece of the system and its desired state
 *When chef client is run on a node the resource is executed by the provider which is handled by chef and the OS itself  
+*
+*
+*
 */
 
 #In the node in client.rb adding the info log level configuration
