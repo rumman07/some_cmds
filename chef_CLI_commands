@@ -102,6 +102,8 @@ $git merge <branchName>  #merging a branch to master branch make sure you are on
 =======
 $git merge <branchName>  #merging a branch to master branch make sure you are on master branch
 $git checkout -b <branchName>
+$ git push origin [-d | --delete] <branch_name>  #deletes a remote branch
+$ git branch -d <branch_name>  #deletes a local branch
 >>>>>>> fc69a6a52a73dfcadeffebf177f06d326cbc78a2
 
 #pre convergence items
