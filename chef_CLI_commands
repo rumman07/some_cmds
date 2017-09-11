@@ -128,7 +128,7 @@ $chef generate file cookbooks/<cookbook_name> <name_of_file>
 $sudo chef-client -z -r "recipe[cookbook1],recipe[cookbook2],recipe[cookbook3]"
 $chef-client -W | chef-client --why-run #the -W options runs the chef-client as it would except prevents it from actualling enforcing the configuration on the node
 $chef-client -o "recipe[mycookbook@0.1.1]"  #-o RUN_LIST_ITEM, --override-runlist RUN_LIST_ITEM Replace the current run-list with the specified items. This option will not clear the list of cookbooks (and related files) that is cached on the node. This option will not persist node data at the end of the client run.New in Chef Client 12.0
-
+$chef-client -l debug 
 
 
 #knife bootstrapping a node
@@ -324,7 +324,13 @@ node_name "the name of the node"
 ssl_ca_file "/etc/chef/trusted_certs/"	
 chef_server_url "plin-w2cf0404.walgreens.com"   --change it to this from ipaddress: 172.31.207.210
 	
-	
+#The request failed because your clock has drifted by more than 15 minutes. Syncing your clock to an NTP Time source should resolve the issue. Syncing your clock to an NTP Time source should resolve the issue.	
+cat /etc/ntp.conf   #check for the ntp server names
+sntp -P no -r nnm02.walgreens.com
+
+#Besclient stop hung simple kill the service by pid by executing the following commands:
+ps -Aef | grep -i besclient
+kill -9 pid 
 	
 *********************************Deleting node from the chef server**********************************************
 #Bootstrapping a node not only installs Chef on that node, but creates a client object on the Chef server as well. Running the Chef client on your node 
