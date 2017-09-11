@@ -8,7 +8,12 @@
 *
 *An attribute is the specific detail about the node. An Attribute allows us to define information about something 
 *Attribute levels of precedence : Attribute file; Node/recipe; Environment; role 
-*default; force_default; normal; override; force_override; automatic 
+*default : Automatically reset at the start of every chef client run is the lowest level of precedence; 
+*force_default : Used ina cookbook or recipe to override an existing "default" attribute; 
+*normal : A setting that persists in the node object; 
+*override : Automatically reset at the start of every chef client most often should be used only when required;
+*force_override : used to ensure that an attribute defined in a cookbook (by an attribute file or by a recipe) takes precendence over an override attribute set by a role or an environment;
+*automatic : Contains data populated by ohai at the begining of every chef-client run and cannot be modified and always has the highest attribute precendence; 
 *
 *In Chef code, you'll often see the ::File notation. The colon :: notation specifies use of the core Ruby File class
 *The Chef::Resource::File class also exists to implement the file resource
@@ -387,6 +392,13 @@ execute 'not-if-example' do
 	not_if 'test -z $(grep "10.0.2.1 webserver01" /etc/hosts)'
 	not_if { ::File.exists?('/etc/motd') } #using ruby class and method to test for file
 end 
+
+execute "rm /etc/httpd/conf.d/READEME" do
+  only_if do
+    File.exists?('/etc/httpd/conf.d/READEME')
+  end
+  notifies :restart, "service[httpd]", :immediately
+end
 
 #ONLY_IF -Allow a resource to execute only if the condition true
 
