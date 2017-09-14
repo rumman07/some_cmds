@@ -221,8 +221,16 @@ $knife cleanup -B (--backup)
 $knife runs list <nodeName>   # return a list of chef-client runs by organization or by node
 $knife runs list   #returns a list of every chef-client run that took place across every single node in the organization
 $knife runs show <runID>  #returns the details for a chef-client run
-$knife status -H (--hide-healthy)
+
+#knife Status Commands: 
+$knife status -H (--hide-healthy)  #Hide nodes on which a chef-client run has occurred within the previous hour
 $knife status --hide-by-mins <MINS=30>
+$knife status --run-list  #To include run-lists in the status
+$knife status "role:web" --run-list
+$knife status  #To view the status of all nodes in the organization
+
+
+
 $r = Get-NodeStatus -Node pld-awurxms01.walgreens.com
 $r
 $s = Get-RunStatus $r.RunId
