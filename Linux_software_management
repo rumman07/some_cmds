@@ -688,6 +688,7 @@ $ ls -la
 #Add the new bash-commands log file in that list: in the syslog file (for centos and redhat) and save 
 $ vi ./syslog
 /var/log/commands.log
+Next log out and log back in
 
 
 
