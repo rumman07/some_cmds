@@ -1,4 +1,12 @@
-/**To install chefdk on OSX and Linux run the following command: 
+/**Key Concepts:
+*Recipes are made up of a collection of resources 
+*Cookbooks are made up of a collection of recipes 
+*Nodes receive their policy based off of roles and individual node configurations
+*A run list defines the order in which you want your recipes to run during convergence 
+*Configuration drift occurs when the desired state of the node does not match the desired state as defined in the policies on the chef server 
+*Configuration drift can be resolved by automating/rumming the chef-client agent 
+*
+To install chefdk on OSX and Linux run the following command: 
 *curl -L https://www.opscode.com/chef/install.sh | sudo bash 
 *Versionable - Testable - Repeatable - Collaborative
 *A resource statement defines the desired state of the configuration, a resource maps to a "provider" which defines
@@ -21,6 +29,7 @@
 *A wrapper cookbook extends or changes the behavior of a cookbook without forking it 
 *
 *The <%= %> notation indicates placeholders that are replaced when Chef applies the template
+*<% if @port == 80 -%>  # - means suppress the line break after the ruby evaluation
 *
 *Because Chef loads dependent cookbooks first, the values specified in the current cookbook's attributes file will overwrite any existing attribute values
 *Ohai is used to detect attributes on a node and report them to chef client at the start of every chef client run as well as at the end of every
