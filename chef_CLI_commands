@@ -42,8 +42,13 @@ To install chefdk on OSX and Linux run the following command:
 *configuration on a node and maps to providers. Resources represent a piece of the system and its desired state
 *When chef client is run on a node the resource is executed by the provider which is handled by chef and the OS itself  
 *
+*Node object is made up of the run lists which define what recipes to run during a chef-client as well as the attributes that define information about the node 
+*Chef search allows queries to be made for any type of data that is indexed by the chef server. Search queries the chef server for stored information 
+*A data bag is a global variable that is stored in JSON data and accessible from the chef server. A data bag is indexed for searching and can be loaded by a recipe or access during search 
+*An environment is a way to map an organizations real-life workflow to what can be configured and managed using the chef server
 *
 *
+* 
 */
 
 #In the node in client.rb adding the info log level configuration
@@ -287,6 +292,17 @@ $vi test/smoke/default/default_test.rb
 $chef exec rspec spec/unit/recipes/install_pip_spec.rb
 $rspec --init   #to enable color 
 $cat .rspec 
+
+
+###Creating Data Bags**********************
+$mkdir data_bags  #create a directory in the chef-repo called data_bags/users/julia
+$mkdir {users,groups}  #Inside the data_bag create data bag directory
+$vi ./users/username.json
+$vi ./groups/groupname.json
+$knife data bag create users 
+$knife data bag create groups 
+
+$knife data_bag from file users username.json 
 
 #generate secret keys
 $ openssl rand -base64 512 | tr -d '\r\n' > secret-key
