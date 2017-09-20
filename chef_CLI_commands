@@ -160,7 +160,6 @@ $knife node run_list set load-balancer "recipe[workstation],recipe[apache]"
 $knife node run_list set load-balancer "recipe[cookbook_name::recipe_name@cookbook_version]"  #explicitly specify a cookbook version to use in a nodes run_list
 $knife cookbook upload <cookbook_name>
 $knife cookbook delete <cookbook>@<version>   #to remove specific version of cookbook
-$knife role show <roleName>
 $knife cookbook create <cookbook_name>
 $knife supermarket show httpd | grep latest_version #gets the version information 
 
@@ -182,11 +181,15 @@ $knife node show <nodeName> -a run_list, -a ipaddress  #This to show more than o
 
 
 #####Creating roles with knife
+$knife role show <roleName>
+$knife role list -w 
 $knife role create <rolename>
 $knife role edit <rolename>
 #uploading roles to chef server
 $knife role from file roles/web.rb
 $knife node run_list set web1 "role[web]"
+$knife node run_list add centos7node "role[rolename]"
+
 
 #####Creating environment with knife 
 $knife environment create ENVIRONMENT_NAME -d DESCRIPTION
@@ -194,6 +197,12 @@ $knife environment list
 $knife environment show <nameofenvironment>
 $knife environment from file <environments_dir>/<env_name.rb>
 $knife node environment set <node_name> <env_name>
+$knife environment list -w  # w option shows the api url for the environment 
+$knife environment delete <env_name>
+$knife environment compare dev prod  #compare information about environments 
+$knife environment compare dev 
+$knife environment compare --all  #Compare all cookbook required version against all environment 
+
 
 #The knife ssh command
 $knife ssh <ipaddress/fqdn/localhost> 'sudo chef-client' --manual-list --ssh-port 2222 --ssh-user vagrant 
