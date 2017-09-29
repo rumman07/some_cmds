@@ -581,7 +581,7 @@ $sudo chown user.user -R .
 $chown [options] new_owner object(s)  #The basic syntax for using chown to change owners is 
 $chown alice file1 dir1  #For example, the following would transfer the ownership of a file named file1 and a directory named dir1 to a new owner named alice
 $chown bob:group2 file2  #Thus, for example, the following would change the owner of a file named file2 to the user with the user name bob and change its group to group2
-
+$ getent passwd <username>  #fetch the info from LDAP servers make sure to login to LDAP enabled server
 
 
 
