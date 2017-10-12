@@ -1,0 +1,41 @@
+/**
+*Why source control : -backup/archive, versioning/history, undo changes, comparing, collaboration/teamwork, blame/learning moment, isolation of changes, experimentation, context switiching, code review 
+*
+*Two main types of source control options:
+*Centralized: -Free:Subversion, CVS -Commercial: ClearCase, Perforce, Team Foundation Server (TFS) -Requires connection to central server for most operations
+*Decentralized/Distributed: Mercurial (Hg), Git, -Most operations are local -Central server not required 
+*
+*Key Concepts
+*Repository contains files, history, config managed by Git
+*Four States of git: 1)Working directory, 2)Staging area (precommit holding area), 3)Commit (Git repository history .git), 4)Remote Repository (GitHub)
+*Master branch the default branch that git creates when a git repo is created
+*  
+**/
+
+#Configuring username and email address global environment setting required before starting to use use git 
+$git config --global user.name "name"
+$git config --global user.email "email_address@example.com"
+#Shows all the known configuration from global and user level 
+$git config --global --list 
+
+#Cloning a repo and git commands
+$git clone <github/clone_url>
+$git status
+$git add . || git add --all
+$git commit -m "the comment goes here"
+$git push origin master 
+
+#Configuring notepad++ ob bash
+#Change to user's home dir or check to make sure you are in the user's home dir
+$pwd  
+$notepad++ .bash_profile 
+#In the .bash_profile file add the following alias command 
+alias npp='notepad++.exe -multiInst -nosession' 
+#Setup notepad++ as default editor within git
+#Check the current global configuration by executing the below command 
+$cat ~/.gitconfig
+$git config --global core.editor "notepad++.exe -multiInst -nosession"
+#To verify 
+$git config --global --list 
+#to test it out
+$git config --global -e 
