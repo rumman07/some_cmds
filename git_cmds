@@ -25,7 +25,7 @@ $git add . || git add --all
 $git commit -m "the comment goes here"
 $git push origin master 
 
-#Configuring notepad++ ob bash
+#Configuring notepad++ on bash
 #Change to user's home dir or check to make sure you are in the user's home dir
 $pwd  
 $notepad++ .bash_profile 
@@ -39,3 +39,10 @@ $git config --global core.editor "notepad++.exe -multiInst -nosession"
 $git config --global --list 
 #to test it out
 $git config --global -e 
+
+#How to start a new project with source control without any existing source code 
+$git init <name_of_project>
+$git status 
+$git add <file_name>
+$git commit -m "message/comment goes here"
+git status 
