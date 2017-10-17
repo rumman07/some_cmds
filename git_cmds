@@ -56,15 +56,15 @@ $git push origin master  #origin => is a reference to remote git hub repository 
 
 #Shortcut the add and commit process into one step. This can only be done with files that are being tracked  
 $git commit -am "add comment here"
-#A tracked file is any file that Git is aware of and tracking actively. That would be any file that has been committed into the Git repository or any file that has been added to the git index or the git staging area
-#to find out if the file is being tracked by git use the below command 
+#A tracked file is any file that Git is aware of and tracking actively. That would be any file that has been committed into the Git repository or any file that has been added to the git index or 
+#the git staging area to find out if the file is being tracked by git use the below command 
 $git ls-files 
 
 #One of the main point of the staging area is that we build up our changes for the commit i.e. we only want to use the "-a" parameter in the commit command when we don't want to add any more changes to
 #that commit. When we have a change that may span multiple files then we definitely want to use the staging area  
 
 #will add all the files recursively 
-$git add .  # . means and files recursively 
+$git add .  # . means add files recursively 
 
 #To unstage
 $git reset HEAD <filename>
