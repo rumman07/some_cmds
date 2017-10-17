@@ -725,6 +725,10 @@ $sudo reboot
 $yum install kernel-devel
 $yum install gcc*  
 
+
+#rpmdb: Lock table is out of available locks
+
+
 *****************************************************Networking**********************************************************************
 /etc/resolv.conf   #(FILE) this is where our DNS server information is stored 
 $route  #the route command is always going to show the default location that our PC is always going to use to get to the outside network. Shows the route table 
