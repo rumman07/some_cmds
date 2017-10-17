@@ -378,7 +378,7 @@ driver:
 **********************************TroubleShootingBootStrappedNodes********************************************
 ###In the /etc/chef/client.rb #add the following 
 node_name "the name of the node"
-ssl_ca_file "/etc/chef/trusted_certs/"	
+ssl_ca_file "Z			
 chef_server_url "plin-w2cf0404.walgreens.com"   --change it to this from ipaddress: 172.31.207.210
 	
 #The request failed because your clock has drifted by more than 15 minutes. Syncing your clock to an NTP Time source should resolve the issue. Syncing your clock to an NTP Time source should resolve the issue.	

@@ -197,6 +197,8 @@ $sudo tar -xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 $tar -zcf nameoffolder.tgz foldername 
 $tar -zxvf nameoffolder.tar.gz  #to uncompress and unarchive in one pass
 
+tar -zcvf /var/preserve/<dir_name>-$(date +%Y-%m-%d_%H-%M-%S).tar.gz <dir_name_to_backup>  #creating a backup of a directory with timestamp 
+
 ###Compression tools: Gzip, Bzip2, Zip
 $gzip nameoffolder.tar   #to compress a file
 $gunzip nameoffolfer.tar.gz  #to uncompress a file
@@ -335,6 +337,7 @@ $vi /etc/fstab   #make entry in the /etc/fstab to make mount persistent
 #Executing a directory is being able to cd into that directory and able to see its contents 
 
 ******************************PARTIONING HARDDRIVE AND CREATING FILESYSTEM AND MOUNTING A DRIVE*****************************************************************
+*$du -sch *
 $df -h # lists the file system size in gigabytes and megabytes
 $sudo fdisk -l  #lists all disk all partitions all file systems which are technically available to be mounted but may or may not be mounted currently
 $sudo mount -t <filesystemtype> /dev/device_name(sdb1) <mount_point /mnt/test>  # to mount an available storage
