@@ -70,3 +70,51 @@ $git add .  # . means add files recursively
 $git reset HEAD <filename>
 #To discard changes in working directory
 $git checkout -- <filename>
+
+#Renaming a file with git command
+$git mv <old_filename> <new_filename>
+$git add -A  #-A will recursively add any changes, also update any files that have been renamed, moved or deleted
+$git add -u  #Updates the git index 
+$git rm <filename.txt>  #Only removes files that are being tracked by git 
+$git help <command_name>  #To bring up the help page for the command
+
+##The git log command and various options to see the git history
+$git log   #shows commit history in reverse chronological order 
+$git log --abbrev-commit  #shortens the sha1 commit id
+$git log --all --oneline --graph --decorate 
+$git log <rangeA_sha1>...<rangeB_sha1>
+$git log --since="3 days ago"  #date based searching  
+$git log -- <filename>  #to see the history of a specific file 
+$git log --follow -- <path_to_file>  #We can see the commit history of the specific files going through the renames 
+$git show <commit_id_sha1>  #To show information about specific commit 
+
+##Git Alias
+$git <new_alias_name>  #to check if the git command already exists
+$git config --global alias.nameof_alias "full command to be issued leaving out the git part of the command"  #Set a git Alias
+Ex git config --global alias.hist "log --all --graph --decorate --oneline" 
+
+###Avoid unwanted files 
+$ls -la  #to check to find .gitignore hidden file 
+$vim .gitignore 
+#The formate for .gitignore is one expression per line:
+#Specific File: MyFile.ext
+#File Pattern: *.ext
+#Folder: my-folder/
+
+###Pushing commit to remote github repository 
+$git pull origin master  #Its a best practice to always do a git pull before pushing commits to remote repository
+$git push origin master  #pushing the commits to remote repository 
+
+###Configure p4merge merge tool to work with git 
+$git config --global merge.tool p4merge 
+$git config --global mergetool.p4merge.path "C:\Program Files\Perforce\p4merge.exe"
+$git config --global merge.prompt false 
+
+###Configure p4merge diff tool to work with git
+$git config --global diff.tool p4merge
+$git config --global difftool.p4merge.path "C:\Program Files\Perforce\p4merge.exe" 
+$git config --global difftool.prompt false 
+
+###To list out git configuration 
+$git config --global --list 
+$git config --global -e 
