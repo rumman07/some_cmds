@@ -390,6 +390,8 @@ $ntpdate <nnm02.walgreens.com>
 #Besclient stop hung simple kill the service by pid by executing the following commands:
 ps -Aef | grep -i besclient
 kill -9 pid 
+#Forcing the installation of old BESClient package 
+$rpm -Uvh --oldpackage /var/chef/cache/BESAgent-9.5.6.63-rhe5.x86_64.rpm
 
 #Wag_Bootstrap command 
 knife bootstrap plp1-dz1-nw.walgreens.com -N plp1-dz1-nw.walgreens.com -x rahmedsd -P "WG56001rar" --yes --sudo --use-sudo-password --run-list "recipe[wag_chef_client]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 -E production
