@@ -118,3 +118,24 @@ $git config --global difftool.prompt false
 ###To list out git configuration 
 $git config --global --list 
 $git config --global -e 
+
+$git diff  #Compares the differences between whats in the local working directory that has been recently modified but not yet staged versus currently staged 
+$git difftool 
+$git diff HEAD  #Git will compare the difference between the working directory and the last commit on this branch 
+$git difftool HEAD  #the git difftool command will use the same parameter as the git diff command
+$git diff --staged HEAD  #Compares the staged area to the Git repository at HEAD 
+$git difftool --staged HEAD 
+$git diff -- <filename_or_path>  #Limiting comparison to one file or path 
+$git diff sha1 Head  #Compare between commits 
+$git diff HEAD HEAD^  #Compares HEAD and HEAD-1 
+$git diff commit_id1 commit_id2 
+$git diff master origin/master  #comparing local repository vs remote repository 
+
+###branching 
+$git branch -a  #Lists all branches including remote branches
+$git checkout master
+$git branch -m branchname newbranchname  #to rename the branch 
+$git branch -d branchname  #to delete a branch 
+
+$git merge add-copyright --no-off  #No Fast forward  (--no-ff)
+$git merge <branch_name> -m "To enter commit message to auto merging when changes made to both branch and master and mergigng"  #use -m to enter message for merging
