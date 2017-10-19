@@ -397,6 +397,8 @@ $rpm -Uvh --oldpackage /var/chef/cache/BESAgent-9.5.6.63-rhe5.x86_64.rpm
 knife bootstrap plp1-dz1-nw.walgreens.com -N plp1-dz1-nw.walgreens.com -x rahmedsd -P "WG56001rar" --yes --sudo --use-sudo-password --run-list "recipe[wag_chef_client]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 -E production
 knife bootstrap plp1-dz1-nw.walgreens.com -N plp1-dz1-nw.walgreens.com -x root --yes --run-list "recipe[wag_chef_client]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 -E production
 
+subscription-manager register --org='Walgreens' --activationkey='AK_RHEL_Canary' --force
+
 *********************************Deleting node from the chef server**********************************************
 #Bootstrapping a node not only installs Chef on that node, but creates a client object on the Chef server as well. Running the Chef client on your node 
 #uses the client object to authenticate itself against the Chef server on each run. Additionally, to registering a client, a node object is created on 

@@ -361,7 +361,7 @@ $mount /datadrive (mountpoint) #to mount
 $chmod go+w /datadrive #giving write permission for group and other to the directory
 $touch test.file #to create a file test.file
 $sudo passwd root #setting password for the root account
- 
+https://help.1and1.com/servers-c37684/dedicated-server-linux-c37687/administration-c37694/increase-the-size-of-the-logical-volume-a756168.html
 **********************Forming a RAID array***********************************
 $sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1  # forming a software raid 1 array with mdadm
 $sudo mkfs.ext4 /dev/md0  # This will make a file system on the array itself
