@@ -139,3 +139,49 @@ $git branch -d branchname  #to delete a branch
 
 $git merge add-copyright --no-off  #No Fast forward  (--no-ff)
 $git merge <branch_name> -m "To enter commit message to auto merging when changes made to both branch and master and mergigng"  #use -m to enter message for merging
+
+###Rebasing 
+$git rebase master  #On the branch feature rebase will merge all the changes that has taken place in the master branch and then apply changes of the feature branch on top of it 
+$git merge myfeature  #Doing a git merge on master to feature after rebase will result in a fast forward merge 
+$git rebase --abort  #to abort a rebase in case of conflicting rebase 
+$git rebase --continue  #To resolve rebase conflict  
+
+$git fetch origin master  #Is a non destructive command which updates the references between the remote repository and the local repository 
+$git pull --rebase origin master  #This will rebase the changes from remote instead of a regular pull to benefit from changes in remote while keeping local commits at the head 
+
+###Stashing 
+$git stash  #to store any changes that is work in progress 
+$git stash apply  #apply the changes that was stashed before 
+$git stash list   #this will list the stash 
+$git stash drop   #this will drop the last stash 
+
+#By default the git stash command will only stash tracked files 
+
+$git stash -u  #-u stashes untracked files 
+$git stash pop  #is equvalent to git stash apply and git syash drop 
+$git stash save "commit message for stash"  #save is like commit message for stash to diffrentiate between stashes
+$git stash show stash@{1}  #To look at a specific stash by the stash index number in side curly braces
+$git stash apply stash@{1} #To apply a specific stash  
+$git stash drop stash@{1}  #To drop a specific stash 
+$git stash clear  #will empty the list of stashes 
+$git stash branch <branch_name>  #creates and switch to a new branch apply stash to a new branch and drop stash 
+
+###Tagging 
+$git tag myTag  #To create a lightweight tag to create a marker on a particular commit 
+$git tag --list 
+$git show myTag
+$git tag --delete myTag   
+#An annotated tag is similar to lightweight tag except it has a little extra information 
+$git tag -a v-01.0
+$git tag v-1.2 -m "Release 1.2"
+$git tag -a v-0.9-beta commit_ID  #To tag a specific commit 
+$git tag -a v-0.8-alpha -f commit_ID  #To update a tag 
+$git push origin <tag_name>  #to push one specific tag 
+$git push origin master --tags  #To push all the tags at once 
+$git push origin :<tag_name>  #To delete a tag on remote github repository 
+
+$git diff tag1 tag2
+$git difftool tag1 tag2 
+#Whenever you issue a tag command it will apply the tag to the current commit 
+$git commit --amend  #allows us to amend our commit message 
+
