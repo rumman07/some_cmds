@@ -12,7 +12,7 @@
 *  
 **/
 
-#Configuring username and email address global environment setting required before starting to use use git 
+#Configuring username and email address global environment setting required before starting to use git 
 $git config --global user.name "name"
 $git config --global user.email "email_address@example.com"
 #Shows all the known configuration from global and user level 
@@ -137,7 +137,7 @@ $git checkout master
 $git branch -m branchname newbranchname  #to rename the branch 
 $git branch -d branchname  #to delete a branch 
 
-$git merge add-copyright --no-off  #No Fast forward  (--no-ff)
+$git merge <branch_name> --no-off  #No Fast forward  (--no-ff)
 $git merge <branch_name> -m "To enter commit message to auto merging when changes made to both branch and master and mergigng"  #use -m to enter message for merging
 
 ###Rebasing 
