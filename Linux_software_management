@@ -88,6 +88,7 @@ $rpm -qf </path/to/file>   # Will will link the file to the package it belongs t
 $rpm -ql <package_name>    # Will list all the files that belongs to that particular package
 $rpm -ivh <package_file.rpm>   # to i=install a package, v=verbose, h=hash shows progress
 $rpm -e <package_name>     #to erase or uninstall a package 
+$rpmdb --rebuilddb   #rebuild rpmdb 
 
 #APT commands for debian
 $vi /etc/apt/sources.list 
