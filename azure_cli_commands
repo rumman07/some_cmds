@@ -44,3 +44,5 @@ $sudo apt-get install -y nodejs
 *********************************************
 $azure group create rar-center2 eastus #creating a resource group in eastus
 $azure vm quick-create #canonical:ubuntuserver:14.04.2-LTS:latest
+
+#Workload : is something that is utilized as a business process that is core to an organization's operational fabric. Ex email, sharepoint
