@@ -442,7 +442,40 @@ $sudo chcon -R -t samba_share_t /samba/example
 $sudo smbpasswd -a cody 
 
 
-
+###############################Install and configure nginx webserver###########################################################
+$apt-get update
+$apt-get install nginx
+$serivce nginx start   #Start the nginx service
+#Then open a brower and paste the url or ipaddress and you will see Welcome to NGINX to verify the installation 
+#Server Blocks virtual hosts configuration 
+$mkdir -p /home/www/domain1.com/public_html
+$vi /home/www/domain1.com/public_html/index.html 
+#Put some sample code in the index.html file 
+<html>
+<center>HELLO! This is a test page!<br>
+We did everything right!</center>
+</html>
+#Configure NGINX sites configuration file
+$cd /etc/nginx/sites-available
+$ls -la
+#A default configuration file will show up we need to copy the content of it into domain1.com config file 
+$cp /etc/nginx/sites-available/default /etc/nginx/sites-available/domain1.com 
+$vi /etc/nginx/sites-available/domain1.com
+#Uncomment the listen 80 line 
+#root /home/www/domain1.com/public_html;
+#index index.php index.html index.htm;
+##Make site accesible from http://localhost/
+#server_name <ipaddress> 
+#Next step is to enable the site
+$cd /etc/nginx/sites-enabled
+$ls -la
+#default site will show up delete that and create a symbolic link to domain1.com in sites-available
+$rm /etc/nginx/sites-available/default 
+#ln -s <path_to_source_file> <path_to_symbolic_link_file>
+$ln -s /etc/nginx/sites-available/domain1.com /etc/nginx/sites-enabled/domain1.com 
+#Restart Nginx service
+$service nginx restart  
+#Then open a brower and paste the url or ipaddress and you will see Welcome to NGINX to verify the installation
 
 
 #The History 
