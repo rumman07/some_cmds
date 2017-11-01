@@ -87,6 +87,7 @@ $rpm -qR <packageName>   #To check for required dependent packagees. R=Required
 $rpm -qf </path/to/file>   # Will will link the file to the package it belongs to 
 $rpm -ql <package_name>    # Will list all the files that belongs to that particular package
 $rpm -ivh <package_file.rpm>   # to i=install a package, v=verbose, h=hash shows progress
+$rpm -Uvh  #The -U option uninstalls any previous versions installed and installs the new version clean install 
 $rpm -e <package_name>     #to erase or uninstall a package 
 $rpmdb --rebuilddb   #rebuild rpmdb 
 
