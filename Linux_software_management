@@ -478,6 +478,11 @@ $ln -s /etc/nginx/sites-available/domain1.com /etc/nginx/sites-enabled/domain1.c
 $service nginx restart  
 #Then open a brower and paste the url or ipaddress and you will see Welcome to NGINX to verify the installation
 
+########################Install and Configure Mysql Database#######################################################
+$apt-get install mysql-server
+$sudo mysql_secure_installation 
+
+#The main configuration file for mysql is called my.cnf located at /etc/mysql/my.cnf or /etc/my.cnf 
 
 #The History 
 $history #show all the command you executed on the system
@@ -766,6 +771,14 @@ $yum install gcc*
 
 #rpmdb: Lock table is out of available locks
 
+#####################Debian Target Packages (main/binary-amd64/Packages) is configured multiple times AND GPG error######################
+$lsb_release -a  #Gives details about the OS version 
+$sudo apt-get autoclean
+$sudo rm /etc/apt/sources.list
+https://debgen.xyz/  #got to this link to regenerate the sources.list
+$cd /etc/apt
+$vim sources.list   #Then paste the content from https://debgen.xyz/ to sources.list 
+$apt-get update
 
 *****************************************************Networking**********************************************************************
 /etc/resolv.conf   #(FILE) this is where our DNS server information is stored 
