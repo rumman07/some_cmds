@@ -364,6 +364,7 @@ $chmod go+w /datadrive #giving write permission for group and other to the direc
 $touch test.file #to create a file test.file
 $sudo passwd root #setting password for the root account
 https://help.1and1.com/servers-c37684/dedicated-server-linux-c37687/administration-c37694/increase-the-size-of-the-logical-volume-a756168.html
+
 **********************Forming a RAID array***********************************
 $sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1  # forming a software raid 1 array with mdadm
 $sudo mkfs.ext4 /dev/md0  # This will make a file system on the array itself
@@ -484,22 +485,120 @@ $sudo mysql_secure_installation
 
 #The main configuration file for mysql is called my.cnf located at /etc/mysql/my.cnf or /etc/my.cnf 
 
-#The History 
-$history #show all the command you executed on the system
-$!<command_number> #executes the command by typing in the corresponding number to the command displayed by the history command output
-$history <10 || any number> #Displays the give number of commands previously executed. 
-$vi ~/.bash_history #can manipulate the history file 
-$mv .bash_history bash_history #making the history file visible from hidden by removing the dot preceeding the filename
-$history -c #This will clear your history
-$export HISTFILESIZE=9999    #Change the history file size 
-$echo $HISTFILESIZE    #Shows the history file size 
 
-##Opening a pdf file 
-$xdg-open <path/to/pdfFilename>
+#####################################Install and Configure Kubernetes Cluster*******************************************************
+#prerequisites
+#First install ntp on all of the servers in the cluster. NTP service will help us to be accurate as possible in time reporting across the cluster 
+$yum install -y ntp 
+#Enable and start the ntpd service because etcd is going to rely on ntp to keep us in time sync
+$systemctl enable ntpd && systemctl start ntpd && systemctl status ntpd 
+#We need to do name resolution. Setup DNS in prodution for now just make entry of ipaddress and hostname to /etc/hosts  
+$vim /etc/hosts
+ipaddress hostname
+ipaddress hostname
+ipaddress hostname
+ipaddress hostname
+#ping the servers with hostname to test 
+#turn off firewalld for now or configure kubernetese ports to allow through firewalld
+#Create a repository file for the latest version of docker kubernetese and etcd on the system 
+$vim /etc/yum.repos.d/virt7-docker-common-release.repo #Copy and paste the content below in the file 
+[virt7-docker-common-release]
+name=virt7-docker-common-release
+baseurl=http://cbs.centos.org/repos/virt7-docker-common-release/x86_64/os/
+gpgcheck=0   #turning off gpgcheck 
+$yum update 
+#Enable the repository for this particular install. Because we want to pull the docker kubernetes and etcd versions that are avialble from this particular repository rather then the defaults
+$yum install --enablerepo=virt7-docker-common-release etcd kubernetes docker   #Install all the dependencies on all the servers both from a node master and client utility perspective
+
+#Configuring the kubernetes master server
+$cd /etc/kubernetes 
+$ls -la
+$vim config 
+#Change the following in the /etc/kubernetes/config file as shown below 
+#How the controller-manager, scheduler, and proxy find the apiserver 
+KUBE_MASTER="--master=http://<fqdn>:8080"
+KUBE_ETCD_SERVERS="--etcd-servers=http://<fqdn>:2379"
+#Setup ETCD
+$cd /etc/etcd 
+$ls -la
+$vim etcd.conf 
+#Change the followings in this file 
+ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
+ETCD_ADVERTISE_CLIENT_URLS="http://0.0.0.0:2379" 
+#Edit the apiserver 
+$cd /etc/kubernetes 
+$ls -la 
+$vim apiserver 
+#Change the followings in this configuration file 
+#The address on the local server to listen to 
+KUBE_API_ADDRESS="--address=0.0.0.0"
+#The port on the local server to listen on    #uncomment this setting below
+KUBE_API_PORT="--port=8080"
+#Port minions listen on   #uncomment this setting below 
+KUBELET_PORT="--kubelet-port=10250"
+#default admission control policies   #comment this line out
+#KUBE_ADMISSION_CONTROL 
+#Ensure that the below 4 services are enabled in that order 
+$systemctl enable etcd kube-apiserver kube-controller-manager kube-scheduler
+#Start the services. The services in the master controller needs to be started first before the minions
+$systemctl start etcd kube-apiserver kube-controller-manager kube-scheduler
+#Check the status of the services to make sure that they are running
+$systemctl status etcd kube-apiserver kube-controller-manager kube-scheduler | grep "(running)" | wc -l
+
+#Install and configure the Minions 
+$vim /etc/kubernetes/config  #change the followings
+#How the controller-manager, scheduler, and proxy find the apiserver 
+KUBE_MASTER="--master=http://<master-fqdn>:8080"
+KUBE_ETCD_SERVERS="--etcd-servers=http://<master-fqdn>:2379"
+$vim /etc/kubernetes/kubelet  #change the followings
+#The address for the info server to serve on (set to 0.0.0.0 or "" for all interfaces)
+KUBELET_ADDRESS="--address=0.0.0.0"
+#The port for the info server to serve on  #uncomment the below line 
+KUBELET_PORT="--port=10250" 
+#You may leave this blank to use the actual hostname 
+KUBELET_HOSTNAME="--hostname-override=<fqdn>"
+#Location of the api-server 
+KUBELET_API_SERVER="--api-servers=http://<master-fqdn>:8080"
+#pod infrastructure container   #comment out the below line 
+#KUBELET_POD_INFRA_CONTAINER="
+#Ensure that the below 3 services are enabled in that order 
+$systemctl enable kube-proxy kubelet docker 
+#Start the services 
+$systemctl start kube-proxy kubelet docker 
+#Check the status of the services 
+$systemctl status kube-proxy kubelet docker | grep "(running)" | wc -l 
+#On the minions make sure that docker is running properly 
+$docker images 
+$docker --version 
+$docker pull hello-world 
+$docker images 
+$docker run hello-world 
+$docker ps 
+$docker ps -a 
+
+#kubectl Exploring our Environment 
+$man kubectl 
+$kubectl get nodes  #returns a list of nodes that registered themselves to the master server 
+$kubectl describe nodes 
+$kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
+$kubectl get nodes -o jsonpath='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]} {@.type}={@.status};{end}{end}' | tr ';' "\n" | grep "Ready=True"
 
 
 
-##############The magic of SED*******************************
+
+**************************************************************************************************************************************
+
+#Centos7 network and firewall configuration
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --reload
+firewall-cmd --permanent --zone=public --add-port=80/tcp
+systemctl status firewalld
+systemctl start firewalld
+systemctl stop firewalld
+systemctl enable firewalld
+systemctl disable firewalld
+
+##############The magic of SED*****************************************************************************************************
 $sed -i '<line#>,<line#> d' <fileName>  # Deletes the line numbers from the file 
 $sed -i '/PATTERN/ d' <fileName>    #Deletes the pattern from the file 
 $sed -i '/PATTERN/ !d' <fileName>    #Deletes everything else not matching the pattern from the file
@@ -514,7 +613,18 @@ $sudo shutdown -c #cancel the shutdown operation
 $telinit 0; telinit 1; telinit 2; telinit 3; telinit 4; telinit 5; telinit 6 #to change the system run level
 $who -r #in order to find the current runlevel
 
+#The History 
+$history #show all the command you executed on the system
+$!<command_number> #executes the command by typing in the corresponding number to the command displayed by the history command output
+$history <10 || any number> #Displays the give number of commands previously executed. 
+$vi ~/.bash_history #can manipulate the history file 
+$mv .bash_history bash_history #making the history file visible from hidden by removing the dot preceeding the filename
+$history -c #This will clear your history
+$export HISTFILESIZE=9999    #Change the history file size 
+$echo $HISTFILESIZE    #Shows the history file size 
 
+##Opening a pdf file 
+$xdg-open <path/to/pdfFilename>
 
 
 *************************************REGEX************************************************************************
@@ -639,15 +749,7 @@ scp <option(-v)> <file_name> <user_name>@<ip_address>:<path_to_file>
 #and set an SSH url for the existing repo.
 git remote set-url origin git@github.com:name/repo.git
 
-#Centos7 network and firewall configuration
-firewall-cmd --permanent --zone=public --add-service=http
-firewall-cmd --reload
-firewall-cmd --permanent --zone=public --add-port=80/tcp
-systemctl status firewalld
-systemctl start firewalld
-systemctl stop firewalld
-systemctl enable firewalld
-systemctl disable firewalld
+
 
 #Connecting to a remote cloud instance via ssh private and public key
 ssh-keygen -t rsa -b 2048-f ~/.ssh/azure
