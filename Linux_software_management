@@ -582,10 +582,18 @@ $kubectl get nodes  #returns a list of nodes that registered themselves to the m
 $kubectl describe nodes 
 $kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 $kubectl get nodes -o jsonpath='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]} {@.type}={@.status};{end}{end}' | tr ';' "\n" | grep "Ready=True"
-
-
-
-
+$kubectl get pods 
+$kubectl describe pod <name_of_pod>
+$kubectl create -f <path_to_yaml>
+$kubectl run busybox --image=busybox --restart=Never --tty -i --generator=run-pod/v1
+$kubectl delete pod <pod_name>
+$kubectl port-forward <pod_name> :80 &  #Dynamically assigns a port in the locathost to the remote pods port 80 
+$kubectl get pods -l <key=value>
+$kubectl describe pods <key=value>
+$kubectl describe deployments -l <key=value> 
+$kubectl apply -f <path_to_yaml> 
+$kubectl get deployments 
+$kubectl get replicationcontrollers 
 **************************************************************************************************************************************
 
 #Centos7 network and firewall configuration
