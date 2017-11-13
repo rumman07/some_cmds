@@ -594,6 +594,18 @@ $kubectl describe deployments -l <key=value>
 $kubectl apply -f <path_to_yaml> 
 $kubectl get deployments 
 $kubectl get replicationcontrollers 
+$kubectl run <name_of_deployment> --image=latest123/apache --replicas=2 --labels=app=myapache,version=1.0  #Creating deployment and pods from the command line 
+$kubectl exec <pod_name> <command>  #executing a coomand from within a pod using kubectl exec command 
+$kubectl exec <pod_name> -c <container_id> <command>   #executing a command from within a pod within a container using kubectl exec command
+$kubectl exec <pod_name> -i -t -- /bin/bash    #attach to a container using kubectl command 
+$kubectl logs <pod_name>   #pull logs from a running pod with a single container 
+$kubectl logs --tail=1 <pod_name> 
+$kubectl logs --since-24h <pod_name>
+$kubectl logs -f <pod_name>
+$kubectl logs -f -c <containe_id/container_name> <pod_name>
+
+
+
 **************************************************************************************************************************************
 
 #Centos7 network and firewall configuration
