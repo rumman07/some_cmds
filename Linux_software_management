@@ -603,8 +603,8 @@ $kubectl logs --tail=1 <pod_name>
 $kubectl logs --since-24h <pod_name>
 $kubectl logs -f <pod_name>
 $kubectl logs -f -c <containe_id/container_name> <pod_name>
-
-
+$kubectl autoscale <kind> <kind_name> --min=2 --max=6 --cpu-percent=  #autoscaling with kubectl 
+$kubectl scale --current-replicas=2 --replicas=4 <kind>/<kind_name>
 
 **************************************************************************************************************************************
 
