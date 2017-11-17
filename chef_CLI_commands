@@ -134,6 +134,19 @@ $git branch #to show on what branch you are currently working
 <<<<<<< HEAD
 $git merge <branchName>  #merging a branch to master branch make sure you are on master branch and after merging do git "push origin master" to see the changes takes affect in the master branch
 =======
+###If you already have code ready to be pushed to this repository then run this in your terminal
+cd existing-project
+git init
+git add --all
+git commit -m "Initial Commit"
+git remote add origin <git_url>
+git push -u origin master
+
+###If your code is already tracked by Git then set this repository as your "origin" to push to.
+cd existing-project
+git remote set-url origin https://rahmedsd@oneit.wba.com/versioncontrol/scm/cookbooks/wag_k8s-cluster.git
+git push -u origin master
+
 $git merge <branchName>  #merging a branch to master branch make sure you are on master branch
 $git checkout -b <branchName>
 $ git push origin [-d | --delete] <branch_name>  #deletes a remote branch
@@ -394,7 +407,7 @@ kill -9 pid
 $rpm -Uvh --oldpackage /var/chef/cache/BESAgent-9.5.6.63-rhe5.x86_64.rpm
 
 #Wag_Bootstrap command 
-knife bootstrap plp1-dz1-nw.walgreens.com -N plp1-dz1-nw.walgreens.com -x rahmedsd -P "WG56001rar" --yes --sudo --use-sudo-password --run-list "recipe[wag_chef_client]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 -E production
+knife bootstrap plp1-dz1-nw.walgreens.com -N plp1-dz1-nw.walgreens.com -x rahmedsd -P "**********" --yes --sudo --use-sudo-password --run-list "recipe[wag_chef_client]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 -E production
 knife bootstrap plp1-dz1-nw.walgreens.com -N plp1-dz1-nw.walgreens.com -x root --yes --run-list "recipe[wag_chef_client]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 -E production
 
 subscription-manager register --org='Walgreens' --activationkey='AK_RHEL_Canary' --force

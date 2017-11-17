@@ -893,6 +893,16 @@ $yum install gcc*
 
 #rpmdb: Lock table is out of available locks
 
+kubernetes api server won't start 
+openssl genrsa -out /tmp/serviceaccount.key 2048
+ 
+vim /etc/kubernetes/apiserver:
+KUBE_API_ARGS="--service_account_key_file=/tmp/serviceaccount.key"
+ 
+vim /etc/kubernetes/controller-manager
+KUBE_CONTROLLER_MANAGER_ARGS="--service_account_private_key_file=/tmp/serviceaccount.key"
+systemctl restart kube-controller-manager.service
+
 #####################Debian Target Packages (main/binary-amd64/Packages) is configured multiple times AND GPG error######################
 $lsb_release -a  #Gives details about the OS version 
 $sudo apt-get autoclean
