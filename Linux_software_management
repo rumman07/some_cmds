@@ -586,6 +586,7 @@ $kubectl get pods
 $kubectl describe pod <name_of_pod>
 $kubectl create -f <path_to_yaml>
 $kubectl run busybox --image=busybox --restart=Never --tty -i --generator=run-pod/v1
+$kubectl run busybox --generator=run-pod/v1 --image=busybox --restart=Never --tty -i 
 $kubectl delete pod <pod_name>
 $kubectl port-forward <pod_name> :80 &  #Dynamically assigns a port in the locathost to the remote pods port 80 
 $kubectl get pods -l <key=value>
