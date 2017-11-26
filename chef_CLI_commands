@@ -8,8 +8,37 @@
 *
 *
 *
-To install chefdk on OSX and Linux run the following command: 
-*curl -L https://www.opscode.com/chef/install.sh | sudo bash 
+###To install chefdk on OSX and Linux run the following command: 
+$curl -L https://www.opscode.com/chef/install.sh | sudo bash   #walgreens 
+$curl -s https://omnitruck.chef.io/install.sh | sudo bash -s -- -P chefdk  #linuxacademy 
+###Setup shell environemnt in ~/.bash_profile so that default ruby interpreter is the chef embeded ruby interpreter not the system ruby interpreter
+$echo 'eval "$(chef shell-init bash)"' >> ~/.bash_profile 
+$source ~/.bash_profile 
+$which chef 
+$which ruby 
+###Quick sanity check to make sure chef was installed and configured correctly 
+$chef -v 
+###Intalling and configuring some packages for chef workstation 
+$yum install -y git yum-utils
+#Configure git 
+$git config --global user.name "Rumman Ahmed"
+$git config --global user.email "rummanahmed.**@gmail.com"
+$git config --global core.editor vim 
+$git config --global color.ui auto 
+###Install and configure docker 
+$yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  #Invoking yum config manage to add a repo
+$yum makecache fast 
+$yum install -y docker-ce 
+$systemctl enable docker 
+$systemctl start docker 
+$usermod -aG docker $USER 
+###Disbale services to not run systemd inside of a container 
+$systemctl stop getty@tty1.service 
+$systemctl mask getty@tty1.service 
+#In order to complete the configuration log out and log back in 
+###Configure docker 
+$docker network create --subnet=10.1.1.0/24 testnet  #create a network for docker 
+$gem install kitchen-docker  
 *Versionable - Testable - Repeatable - Collaborative
 *
 *A resource statement defines the desired state of the configuration, a resource maps to a "provider" which defines the steps to achieve that desired 
