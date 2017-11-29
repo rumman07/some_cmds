@@ -188,12 +188,28 @@ $ruby -c /path/to/file #directly checking for syntax error
 $foodcritic /path/to/file
 $ruby -c learn.rb && foodcritic learn.rb
 
-#chef generate commands
+###chef generate command
+#Generators are used to quickly generate cookbooks or components of a cookbook. Generator are invoked by using the chef generate command. Execute $chef generate to see what chef generate can create
+#Using $chef generate generator <name_of_generator> will create a copy of the ChefDK generator which we can use to customize to our specifications
+#Generating a generator will help enforce standards on the contents of a newly created cookbook or cookbook component to ensure it meets organiztional requirments
+#Use cases for generators include: 1)Boilerplate text in README or generated recipes, 2)Default licensing choice, 3)Commonly used code 
 $chef generate cookbook <cookbooks_dir>/<cookbook_name>
 $chef generate recipe cookbooks/apache <name_of_recipe_without_.rb>
 $chef generate attribute cookbooks/lamp <name_of_attrbute_without_.rb>   #the name of the default attribute is default.rb 
 $chef generate template <path_to_cookbook> <name_of_template_without_.erb>
 $chef generate file cookbooks/<cookbook_name> <name_of_file>
+###Generate a generator cookbook using chef generate:
+$mkdir generator    #create a dir to house the generator cookbook 
+$chef generate generator <path_to_generator_dir>/<name_of_generator_cookbook>
+#configure these files: under tepmplares readme kitchen.yml and under files spec_helper and create .chef/config.rb  content_of_config.rb as below: 
+cookbook_path ['~/chef/cookbooks'] 
+local_mode true
+if File.basename($PROGRAM_NAME).eql?('chef') && ARGV[0].eql?('generate')
+  chefdk.generator.license = "all_rights"
+  chefdk.generator.copyright_holder = "Student Name"
+  chefdk.generator.email = "you@example.com"
+  chefdk.generator_cookbook = "~/generator/lcd_origin"
+end
 
 
 $sudo chef-client -z -r "recipe[cookbook1],recipe[cookbook2],recipe[cookbook3]"
