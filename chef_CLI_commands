@@ -57,7 +57,7 @@ $gem install kitchen-docker
 *An attribute is the specific detail about the node. An Attribute allows us to define information about something 
 *Attribute levels of precedence : Attribute file; Node/recipe; Environment; role 
 *default : Automatically reset at the start of every chef client run is the lowest level of precedence; 
-*force_default : Used ina cookbook or recipe to override an existing "default" attribute; 
+*force_default : Used in a cookbook or recipe to override an existing "default" attribute; 
 *normal : A setting that persists in the node object; 
 *override : Automatically reset at the start of every chef client most often should be used only when required;
 *force_override : used to ensure that an attribute defined in a cookbook (by an attribute file or by a recipe) takes precendence over an override attribute set by a role or an environment;
