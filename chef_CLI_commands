@@ -349,12 +349,48 @@ ohai memory
 ohai memory/total
 ohai cpu/0/mhz
 ohai fqdn 
-**********Running Test Kitchen****************************
-#Install the docker test kitchen plugin
-$chef exec gem install kitchen-docker 
 
+**********Running Test Kitchen********************************************************************
+=begin 
+*Test kitchen provides an automated testing framework for your cookbooks across different platforms
+*and offers a driver plugin architecture to ensure your code can be tested on as many platforms 
+*as you need. Test suites help you extend and differentiate your tests allowing for complex 
+*combination of tests to occur.
+*Configuration for test kitchen is defined in a .kitchen.yml file which is YAML formatted 
+*The .kitchen.yml file contains specific syntax to configure the requirements for handling your 
+*test cases: 
+*Drivers are used to create the platform instances which are used during cookbook testing
+driver: 
+     name: driver_name 
+*provisioner: Provisioner specify how the chef-client will be simulated during the testing process
+*the most commmon configurations are chef-zero and chef-solo. Key functionality of the chef_zero
+*and chef_solo provisioner is the ability to use the require_chef_omnibus setting to install a
+*specific chef version
+provisioner:
+     name: provisioner_name   #it can be name: chef_zero || name: chef_solo
+	 require_chef_omnibus: 12.8.1
+*Shell provisioner
+provisioner:
+    name: shell
+*The verifier configuration defines which test framwork will perform tests	 
+verifier:   
+   name: inspec 
+*Transport defines the communication protocol for the execution of remote commands. Among other 
+*things, transport settings can include things like username, password, connection retries or port 
+transport:
+   name: transport_name    #it can be name: ssh || name: winrm 
+*Platforms defines chef server attributes that are common to the collection of test suites
+*The platform_version defines the list of operating system and version on which kitchen will 
+*perform cookbook testing  
+platform: 
+   name: platform_version
+*Suites is a list of a group of tests which allow the granular combinations of run_lists and platforms
+*to define what is being tested 
+=end 
+#Install the docker and azure test kitchen plugin
+$chef exec gem install kitchen-docker 
 $chef exec gem install kitchen-azurerm
-$chef generate cookbook my_cookbook
+
 $vi .kitchen.yml
 $kiitchen init #Creates a boilerplate .kitchen.yml which we use to run our tests
 $kitchen list  #List all instances docker containers; ec2 instances; virtual machines
