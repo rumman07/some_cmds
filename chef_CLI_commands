@@ -392,6 +392,7 @@ $chef exec gem install kitchen-docker
 $chef exec gem install kitchen-azurerm
 
 $vi .kitchen.yml
+$kitchen discover driver 
 $kiitchen init #Creates a boilerplate .kitchen.yml which we use to run our tests
 $kitchen list  #List all instances docker containers; ec2 instances; virtual machines
 $kitchen status  
