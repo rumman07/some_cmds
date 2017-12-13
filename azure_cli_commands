@@ -46,3 +46,6 @@ $azure group create rar-center2 eastus #creating a resource group in eastus
 $azure vm quick-create #canonical:ubuntuserver:14.04.2-LTS:latest
 
 #Workload : is something that is utilized as a business process that is core to an organization's operational fabric. Ex email, sharepoint
+###VNet is a representation of a on-prem solution in the cloud. You can have as many VNet as you like
+#per resource group but you will have the the limitiation how many subnets you can have in a VNet based on the schema of the VNet 
+#Subnet is a range of ipaddresses in a VNet that you can divide VNet into multiple subnets 
