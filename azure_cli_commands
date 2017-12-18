@@ -46,6 +46,16 @@ $azure group create rar-center2 eastus #creating a resource group in eastus
 $azure vm quick-create #canonical:ubuntuserver:14.04.2-LTS:latest
 
 #Workload : is something that is utilized as a business process that is core to an organization's operational fabric. Ex email, sharepoint
-###VNet is a representation of a on-prem solution in the cloud. You can have as many VNet as you like
+###VNet is a representation of a on-prem solution in the cloud, its a logical isolation of azure cloud dedicated to a subscription. You can have as many VNet as you like
 #per resource group but you will have the the limitiation how many subnets you can have in a VNet based on the schema of the VNet 
 #Subnet is a range of ipaddresses in a VNet that you can divide VNet into multiple subnets 
+###Azure VPN Gateways: Used to send network traffic between virtual networks and on-premises locations
+#Gateway subnet: First a gateway named GatewaySubnet must be created 
+#Gateway Types: VPN, ExpressRoute  
+#VPN Types: 
+#Policy based VPN: Encrypt and direct packets through IPsec tunnels
+#Route-based VPN: Use routes in the IP forwarding or routing table to direct packets into their corresponding tunnel interfaces 
+#The tunnel interfaces then encrypt or decrypt the packets in and out of the tunnels
+#Azure VPN Gateways Connetion types: IPsec, Vnet2Vnet, ExpressRoute, VPNClient
+#Local network gateways: The on-premises location of the VPN tunnel in which you will give the local network gatways a name, the 
+#public IP address of the on-premises VPN device, and specify the address prefixes that are located on the on-prem location 
