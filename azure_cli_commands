@@ -1,7 +1,13 @@
+#Configure azure-cli tab completion 
+$azure --completion >> ~/azure.completion.sh
+$echo 'source ~/azure.completion.sh' >> ~/.bash_profile
+source ~/azure.completion.sh
+
 > Login-AzureRMAccount
 > Add-AzureRMAccount 
 > Get-AzureRMSubscription
 
+$azure config mode arm
 
 $sudo lshw -C disk #shows all the disks and what type of disks currently associated with the server
 $fdisk -l | less

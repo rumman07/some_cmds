@@ -774,9 +774,10 @@ git remote set-url origin git@github.com:name/repo.git
 
 
 #Connecting to a remote cloud instance via ssh private and public key
-ssh-keygen -t rsa -b 2048-f ~/.ssh/azure
-ssh -i ~/.ssh/azure <user_name>@<ip_address>
-
+$ssh-keygen  #Simply to create a private and public key pair 
+$ssh-keygen -t rsa -b 2048 -f ~/.ssh/azure
+$ssh -i ~/.ssh/azure <user_name>@<ip_address>
+$ssh-copy-id username@<hostname/ipaddress>  #to copy public key to the remote server account 
 
 
 
