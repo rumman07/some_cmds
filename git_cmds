@@ -194,3 +194,16 @@ $git pull origin <branch_name>
 ###Creating and Setting up local and remote branches when the remote branch does not already exists
 $git checkout -b <branch_name>
 $git push --set-upstream origin <branch_name>
+
+###Time travel *****************************************************
+#Going to the history backward
+$git log --oneline --graph --decorate --all  #git log only shows us the history 
+$git reset head^  #takes one step backward
+$git reset head^^  #takes two step backward 
+###Going to the future forward 
+$git reflog  #git reflog show everything that you have done for the last 60 days  
+$git reset <commit_id>   #to go forward 
+$git reset HEAD@{n}   #to move the position of the head where n represents the position 
+$git log --oneline --graph --decorate --all 
+
+
