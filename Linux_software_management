@@ -264,10 +264,18 @@ $alias #shows all the alias that exists on your system
 ##To make an alias persistent add it to the .bashrc file under some more ls alias section in the home dir
 
 #Generating a file content with cat 
-cat >(filename) <<EOL
+#TO add new text 
+$cat > <filename> <<EOL
 >type
 >here
-EOL 
+>EOL 
+
+#To append text 
+$cat >> <filename> << EOF
+>Enter text
+>here
+>EOF
+ 
 
 ************************************Sudoers file***********************************************************
 ##Sudoers allows particular users to run various commands as the root user, without needing the root password
