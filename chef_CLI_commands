@@ -276,6 +276,29 @@ $knife environment compare dev prod  #compare information about environments
 $knife environment compare dev 
 $knife environment compare --all  #Compare all cookbook required version against all environment 
 
+###Creating Data Bags**********************
+$mkdir data_bags  #create a directory in the chef-repo called data_bags/users/julia
+$mkdir {users,groups}  #Inside the data_bag create data bag directory
+$vi ./users/username.json
+$vi ./groups/groupname.json
+$knife data bag create users 
+$knife data bag create groups 
+
+$knife data_bag from file users username.json 
+
+knife data bag list   #shows a list of all the available data bags 
+knife data bag show <data_bag_name>  #shows the items in a particular data bag 
+knife data bag show <data_bag_name> <bata_bag_item_name>  #shows the content of a particular data bag item 
+
+#generate secret keys
+$ openssl rand -base64 512 | tr -d '\r\n' > secret-key
+#creating encrypted data bag
+$knife data bag create secret-users --secret-file secret-key 
+#uploading encrypted data bag item
+$knife data bag from file secret-users data_bags/users/julia.json --secret-file secret-key
+#decrypt encrypted data bag items
+$knife data bag show secret-users julia --secret-file secret-key
+
 
 #The knife ssh command
 $knife ssh <ipaddress/fqdn/localhost> 'sudo chef-client' --manual-list --ssh-port 2222 --ssh-user vagrant 
@@ -451,27 +474,6 @@ end
 $inspec compliance login https://chef-compliance.walgreens.com --insecure --user='rahmedsd' --token='<>'
 $inspec compliance upload <path_to_profile>
 
-
-
-
-###Creating Data Bags**********************
-$mkdir data_bags  #create a directory in the chef-repo called data_bags/users/julia
-$mkdir {users,groups}  #Inside the data_bag create data bag directory
-$vi ./users/username.json
-$vi ./groups/groupname.json
-$knife data bag create users 
-$knife data bag create groups 
-
-$knife data_bag from file users username.json 
-
-#generate secret keys
-$ openssl rand -base64 512 | tr -d '\r\n' > secret-key
-#creating encrypted data bag
-$knife data bag create secret-users --secret-file secret-key 
-#uploading encrypted data bag item
-$knife data bag from file secret-users data_bags/users/julia.json --secret-file secret-key
-#decrypt encrypted data bag items
-$knife data bag show secret-users julia --secret-file secret-key
 
 
 #******Adding soft dependencies of cookbooks********************************************
