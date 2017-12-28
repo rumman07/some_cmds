@@ -452,6 +452,42 @@ $sudo chcon -R -t samba_share_t /samba/example
 $sudo smbpasswd -a cody 
 
 
+######################Install and configure NFS server and client###############################################################
+#Install the packages and start the service. Server configuration  
+$yum install -y nfs-utils nfs-utils-lib
+$chkconfig nfs on   #for older version of centos 
+$systemctl enable nfs 
+$systemctl start nfs && systemctl status nfs 
+#For example share the /home and /var/share dir 
+$mkdir /var/share 
+$chmod 755 /var/share 
+#configure the /etc/exports file 
+$vim /etc/exports
+/<dir_to_mount>  192.168.1.0/24(rw,no_root_squash)   #disable root squash 
+/var/share   <ipaddress>/<cidr>(ro) 
+$exportfs -a   #exports the filesystem from the exports file 
+#Restart the nfs service 
+$systemctl restart nfs 
+
+#Client system configuration 
+$yum install -y nfs-utils nfs-utils-lib
+#Create some mount points 
+$cd /mnt 
+$mkdir nfs_home
+$mkdir nfs_share 
+$mount <server_ip>:/home /mnt/nfs_home/
+$mount 192.168.i.131:<dir_to_mount> /mnt/nfs_share/
+#to mount on boot and make it persistent configure the /etc/fstab file 
+<server_ip>:<dir_to_mount>    /mnt/nfs_home  nfs  rw,sync,hard,intr 0 0
+192.168.1.131:/var/share      /<mount_point>  <fs_type>  rw,sync,hard,intr 0 0
+$df -h
+$umount nfs_home/
+$umount nfs_share/ 
+$df -h  
+$mount -a   #mounts anything remote and local filesystem types from within the /etc/fstab 
+$umount /mnt/nfs_home
+$mount /mnt/nfs_home
+  
 ###############################Install and configure nginx webserver###########################################################
 $apt-get update
 $apt-get install nginx
