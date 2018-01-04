@@ -474,7 +474,7 @@ end
 $inspec compliance login https://chef-compliance.walgreens.com --insecure --user='rahmedsd' --token='<>'
 $inspec compliance upload <path_to_profile>
 #bootstrap node for compliance 
-knife bootstrap 10.217.10.229 -N k8s_agent01 -x wagsadmin -i ..\..\.ssh\id_rsa --yes --sudo --use-sudo-password --run-list "recipe[profile_wag_infrastructure_baseline],recipe[wag_audit],recipe[wag_os_hardening]" --bootstrap-url http://172.31.207.211/install.sh
+$knife bootstrap 10.217.10.229 -N k8s_agent01 -x wagsadmin -i ..\..\.ssh\id_rsa --yes --sudo --use-sudo-password --run-list "recipe[profile_wag_infrastructure_baseline],recipe[wag_audit],recipe[wag_os_hardening]" --bootstrap-url http://172.31.207.211/install.sh
 
 
 #******Adding soft dependencies of cookbooks********************************************
