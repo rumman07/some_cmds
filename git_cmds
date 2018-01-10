@@ -207,3 +207,20 @@ $git reset HEAD@{n}   #to move the position of the head where n represents the p
 $git log --oneline --graph --decorate --all 
 
 
+###If you already have code ready to be pushed to this repository then run this in your terminal
+cd existing-project
+git init
+git add --all
+git commit -m "Initial Commit"
+git remote add origin <git_url>
+git push -u origin master
+
+###If your code is already tracked by Git then set this repository as your "origin" to push to.
+cd existing-project
+git remote set-url origin https://rahmedsd@oneit.wba.com/versioncontrol/scm/cookbooks/wag_k8s-cluster.git
+git push -u origin master
+
+$git merge <branchName>  #merging a branch to master branch make sure you are on master branch
+$git checkout -b <branchName>
+$ git push origin [-d | --delete] <branch_name>  #deletes a remote branch
+$ git branch -d <branch_name>  #deletes a local branch
