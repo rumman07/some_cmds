@@ -107,6 +107,7 @@ $apt-cache show <package_name>    # To show information about a particular packa
 
 #DPKG commands to interact with a package manager debian distributions
 $dpkg -l   #lists installed packages
+$dpkg -s <package_name>  #shows if a package is installed 
 $dpkg --get-selection  #also lists all installed packages
 $dpkg -S </path/to/file>   # Will display a package that the file belongs to
 $dpkg -L <package_name>    # List all the files in a package
