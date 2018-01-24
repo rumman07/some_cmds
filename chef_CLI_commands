@@ -541,6 +541,7 @@ subscription-manager register --org='Walgreens' --activationkey='AK_RHEL_Canary'
 #relocation error: file /opt/chef/embedded/lib/ruby/2.1.0/sparc-solaris2.10/openssl.so: symbol EC_GROUP_new_curve_GFp: referenced symbol 
 #not found - /opt/chef/embedded/lib/ruby/2.1.0/sparc-solaris2.10/openssl.so (LoadError)
 $LD_LIBRARY_PATH=/opt/chef/embedded/lib/ruby/2.1.0/sparc-solaris2.10/openssl.so chef-client  #fix for the above issue some missing env variable
+
 *********************************Deleting node from the chef server**********************************************
 #Bootstrapping a node not only installs Chef on that node, but creates a client object on the Chef server as well. Running the Chef client on your node 
 #uses the client object to authenticate itself against the Chef server on each run. Additionally, to registering a client, a node object is created on 
@@ -559,8 +560,8 @@ $rm -rf /var/chef
 $rm -rf /opt/chef
 rm -rf /var/log/chef 
 	
-	
-	
+###Downgrading chef-client version on ubuntu 
+$curl -L http://chef-mart.walgreens.com/install.sh | bash -s -- -v 12.13.37
 	
 ****************Ruby code for recipes examples*******************************************
 #String interpolation and inserting node attributes inside a recipe
