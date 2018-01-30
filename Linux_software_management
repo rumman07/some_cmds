@@ -817,6 +817,9 @@ scp <option(-v)> <file_name> <user_name>@<ip_address>:<path_to_file>
 git remote set-url origin git@github.com:name/repo.git
 
 
+###SSH
+
+
 
 #Connecting to a remote cloud instance via ssh private and public key
 $ssh-keygen  #Simply to create a private and public key pair 
