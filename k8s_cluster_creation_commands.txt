@@ -73,3 +73,5 @@ $az group deployment create --name "rar-rx" --resource-group "rar-rx-acs-k8s-clu
 az group deployment validate --template-file azuredeploy.json --parameters azuredeploy.parameters.json --resource-group rxr-acs-devenv
 az group deployment create --name k8s0830v1 --resource-group rxr-acsdtn --template-file azuredeploy.json --parameters azuredeploy.parameters.json
 =end 
+*****Bootstrapping the nodes************************
+knife bootstrap <ipaddress> -N <nodeName_defaultisFQDN> -x <username> -P "<password>" || -i <path_to_key> --yes --sudo --use-sudo-password --run-list "recipe[profile_wag_infrastructure_baseline],recipe[wag_audit],recipe[wag_os_hardening]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 --tags <optional> -E <optional>
