@@ -307,6 +307,8 @@ $knife ssh "*:*" -x <username> -P <password> "sudo chef-client"
 $knife ssh "role:web" -x chef -P chef "sudo chef-client"
 $knife ssh "role:web" "sudo chef-client" -x <username> -P <password>
 $knife ssh "role:<rolename>" "type command to run" -x <username> -P <password>
+###1 node found, but does not have the required attribute to establish the connection. Try setting another attribute to open the connection using --attribute.
+knife ssh 'node_name:k8s-agent02' -x wagsadmin -i ..\..\..\..\.ssh\id_rsa "sudo chef-client" -a ipaddress 10.217.10.229 #-a ipaddress 10.217.10.229 sets the ipaddress attribute 
 
 #Syntax for knife search index
 $knife search INDEX (client, node, role, environment, data_bags) "key:value"
