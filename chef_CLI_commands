@@ -28,6 +28,7 @@ $git config --global color.ui auto
 ###Install and configure docker 
 $yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  #Invoking yum config manage to add a repo
 $yum makecache fast 
+$yum list docker-ce --showduplicates | sort -r
 $yum install -y docker-ce 
 $systemctl enable docker 
 $systemctl start docker 
@@ -243,6 +244,7 @@ $knife exec -E "nodes.find('recipes:wag_ilmt'){|n| puts n.name}"
 
 
 #All the knife search command. If no search index is specified the default index is node  #Reference: https://docs.chef.io/knife_search.html 
+#INDEX is one of client, environment, node, role, or the name of a data bag and SEARCH_QUERY is the search query syntax for the query that will be executed.
 $knife search 'platform_family:rhel'
 $Knife search 'recipes:apache'
 $knife search 'recipes:apache\:\:websites'  
