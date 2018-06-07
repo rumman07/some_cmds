@@ -1,5 +1,8 @@
 /**C:\opscode\chefdk\embedded\lib\ruby\gems\2.3.0\gems\chef-dk-1.3.43\lib\chef-dk\skeletons
 *$export EDITOR=$(which vim)
+####This iis to set up WBA proxy 
+*$export http_proxy="http://corppac.walgreens.com:8080"
+*$export https_proxy="http://corppac.walgreens.com:8080"
 *comment
 * plink -ssh wagsadmin@pln-awuchef01.walgreens.com
 *When the system boots, typically one process called the init process starts up the /sbin/init that in turn manages child processes 
