@@ -64,7 +64,7 @@ $git clone https://github.com/Azure/acs-engine.git
 $SUBSCRIPTION_ID = "d530035b-1c5c-4994-97fa-c227e2494716"
 ####When an application needs access to deploy or configure resources through Azure Resource Manager in Azure Stack, you create a service principal, which is a credential for your 
 ####application. You can then delegate only the necessary permissions to that service principal
-$az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/${SUBSCRIPTION_ID}"  #This will output your appId, password, name, and tenant. The name or appId may be used for the servicePrincipalProfile.clientId and the password is used for servicePrincipalProfile.secret.
+$az ad sp create-for-rbac --role="Contributor" --name <sp_name> --scopes="/subscriptions/${SUBSCRIPTION_ID}"  #This will output your appId, password, name, and tenant. The name or appId may be used for the servicePrincipalProfile.clientId and the password is used for servicePrincipalProfile.secret.
 #Create a subnet in the vnet and attach the routing table and the nsg to the subnet.
 #update the template accordingly
 $acs-engine generate .\acs-engine\examples\kubernetes.json
