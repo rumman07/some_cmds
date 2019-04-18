@@ -476,6 +476,7 @@ end
 
 ####Chef Inspec and Compliance####################################
 $inspec compliance login https://chef-compliance.walgreens.com --insecure --user='rahmedsd' --token='<>'
+$inspec compliance login https://chef-compliance.walgreens.com --insecure --user='walgreenco-sandbox' --token='<>'
 $inspec compliance profiles 
 $inspec compliance download cis/cis-rhel6-level2
 $inspec compliance upload <path_to_profile>
