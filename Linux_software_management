@@ -442,10 +442,11 @@ $mkdir example
 $vi /etc/samba/smb.conf 
 #In the smb.conf file enter the following
 [example]
-         path = /samba/example
+         path = /home/rahmed   <desired path to dir>
 		 browseable = yes
 		 writeable = yes
-		 guest ok = yes 
+		 guest ok = yes
+         valid user = rahmed  <desired username>		 
 #Configure firewall to allow service samba
 $firewall-cmd --permanent --zone=public --add-servce=samba 
 $firewall-cmd --reload  #Reloads the firewall
@@ -944,6 +945,9 @@ $sudo reboot
 ###capabilities we need first need to make sure or install the kernel header
 $yum install kernel-devel
 $yum install gcc*  
+===or 
+dnf install kernel-devel
+dnf install dkms
 
 
 #rpmdb: Lock table is out of available locks
