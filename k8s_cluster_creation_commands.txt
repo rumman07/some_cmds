@@ -11,7 +11,8 @@
 11 .\Azure-Deploy.ps1 -Credentials $me -SubscriptionName 'WAGS Sandbox' -Location 'west us' -ResourceGroupName 'rar-wag-k8s' -VmPrefix 'kube-member' -VmCount 3
 12 knife bootstrap 172.17.48.137 -N kube-member01 -x wagsadmin -P "Welcome123!" --yes --sudo --use-sudo-password --run-list "recipe[wag_k8s_master_setup]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 --tags kube-member,Patch
 13 knife bootstrap 172.17.48.10 -N kube-member02 -x wagsadmin -P "Welcome123!" --yes --sudo --use-sudo-password --run-list "recipe[wag_k8s_minion_setup]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 --tags kube-member,Patch 
-
+###change --bootstrap-url to --msi-url
+knife bootstrap windows winrm 10.239.63.97 -N dwa-awurmm101.walgreenco.net -x Administrator -P "account password" --run-list "recipe[profile_wag_infrastructure_baseline]" --tags "Azure,West-US" --environment development --msi-url http://172.31.207.211/install.ps1 --bootstrap-version 12.13.37
 
 ###Deploying a pod
 $kubectl run wordpress --image=tutum/wordpress --port=80 --hostport=81 
@@ -64,7 +65,7 @@ $git clone https://github.com/Azure/acs-engine.git
 $SUBSCRIPTION_ID = "d530035b-1c5c-4994-97fa-c227e2494716"
 ####When an application needs access to deploy or configure resources through Azure Resource Manager in Azure Stack, you create a service principal, which is a credential for your 
 ####application. You can then delegate only the necessary permissions to that service principal
-$az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/${SUBSCRIPTION_ID}"  #This will output your appId, password, name, and tenant. The name or appId may be used for the servicePrincipalProfile.clientId and the password is used for servicePrincipalProfile.secret.
+$az ad sp create-for-rbac --role="Contributor" --name <sp_name> --scopes="/subscriptions/${SUBSCRIPTION_ID}"  #This will output your appId, password, name, and tenant. The name or appId may be used for the servicePrincipalProfile.clientId and the password is used for servicePrincipalProfile.secret.
 #Create a subnet in the vnet and attach the routing table and the nsg to the subnet.
 #update the template accordingly
 $acs-engine generate .\acs-engine\examples\kubernetes.json
@@ -75,3 +76,11 @@ az group deployment create --name k8s0830v1 --resource-group rxr-acsdtn --templa
 =end 
 *****Bootstrapping the nodes************************
 knife bootstrap <ipaddress> -N <nodeName_defaultisFQDN> -x <username> -P "<password>" || -i <path_to_key> --yes --sudo --use-sudo-password --run-list "recipe[profile_wag_infrastructure_baseline],recipe[wag_audit],recipe[wag_os_hardening]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 --tags <optional> -E <optional>
+
+
+az group exists -n rxr-naples-nonprod-nonsen-acsnaples-awus-rg
+az group create -n rxr-naples-nonprod-nonsen-acsnaples-awus-rg -l 'west us'
+az group deployment validate --template-file ./azuredeploy.json --parameters ./azuredeploy.parameters.json --resource-group rxr-naples-nonprod-nonsen-acsnaples-awus-rg
+az group deployment create --name napk8s --resource-group rxr-naples-nonprod-nonsen-acsnaples-awus-rg --template-file ./azuredeploy.json --parameters ./azuredeploy.parameters.json
+
+knife bootstrap 10.217.9.52 -N k8s-agentstd-37614302-0.walgreens.com -x "wagsadmin" -i ..\..\.ssh\acs_rxadmin --yes --use-sudo-password --run-list "recipe[profile_wag_infrastructure_baseline],recipe[profile_wag_acs_k8s_infra]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 13.10.0 -tags "Instance-acsnaples"

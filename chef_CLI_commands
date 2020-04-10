@@ -28,6 +28,7 @@ $git config --global color.ui auto
 ###Install and configure docker 
 $yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  #Invoking yum config manage to add a repo
 $yum makecache fast 
+$yum list docker-ce --showduplicates | sort -r
 $yum install -y docker-ce 
 $systemctl enable docker 
 $systemctl start docker 
@@ -243,6 +244,7 @@ $knife exec -E "nodes.find('recipes:wag_ilmt'){|n| puts n.name}"
 
 
 #All the knife search command. If no search index is specified the default index is node  #Reference: https://docs.chef.io/knife_search.html 
+#INDEX is one of client, environment, node, role, or the name of a data bag and SEARCH_QUERY is the search query syntax for the query that will be executed.
 $knife search 'platform_family:rhel'
 $Knife search 'recipes:apache'
 $knife search 'recipes:apache\:\:websites'  
@@ -474,6 +476,9 @@ end
 
 ####Chef Inspec and Compliance####################################
 $inspec compliance login https://chef-compliance.walgreens.com --insecure --user='rahmedsd' --token='<>'
+$inspec compliance login https://chef-compliance.walgreens.com --insecure --user='walgreenco-sandbox' --token='<>'
+$inspec compliance profiles 
+$inspec compliance download cis/cis-rhel6-level2
 $inspec compliance upload <path_to_profile>
 #bootstrap node for compliance 
 $knife bootstrap 10.217.10.229 -N k8s_agent01 -x wagsadmin -i ..\..\.ssh\id_rsa --yes --sudo --use-sudo-password --run-list "recipe[profile_wag_infrastructure_baseline],recipe[wag_audit],recipe[wag_os_hardening]" --bootstrap-url http://172.31.207.211/install.sh
@@ -535,7 +540,7 @@ kill -9 pid
 $rpm -Uvh --oldpackage /var/chef/cache/BESAgent-9.5.6.63-rhe5.x86_64.rpm
 
 #Wag_Bootstrap command 
-knife bootstrap plp1-dz1-nw.walgreens.com -N plp1-dz1-nw.walgreens.com -x rahmedsd -P "**********" --yes --sudo --use-sudo-password --run-list "recipe[wag_chef_client]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 -E production
+knife bootstrap plp1-dz1-nw.walgreens.com -N plp1-dz1-nw.walgreens.com -x rahmedsd -P "**********" --yes --sudo --use-sudo-password --run-list "recipe[wag_chef_client]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 --tags kube-member,Patch -E production
 knife bootstrap plp1-dz1-nw.walgreens.com -N plp1-dz1-nw.walgreens.com -x root --yes --run-list "recipe[wag_chef_client]" --bootstrap-url http://172.31.207.211/install.sh --bootstrap-version 12.13.37 -E production
 
 subscription-manager register --org='Walgreens' --activationkey='AK_RHEL_Canary' --force
