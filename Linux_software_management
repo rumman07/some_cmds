@@ -76,6 +76,7 @@ $yum info <package_name>    # Display info
 $yum install -y <package_name>   # The -y option answers yes to all the prompt
 $yum remove <package_name> 
 $yum update  #update the source lists of the packages 
+$yum update cache 
 $yum upgrade
 $yum check-update <packageName>  #To check if a package needs update 
 $yum deplist <packageName>  #To check what dependencies required for a specific package
