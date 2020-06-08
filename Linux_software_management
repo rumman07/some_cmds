@@ -82,6 +82,7 @@ $yum check-update <packageName>  #To check if a package needs update
 $yum deplist <packageName>  #To check what dependencies required for a specific package
 $yum clean packages  #Removes junks left behind from uninstalled packages
 $yum clean all  #To remove anything from a temp file or packages already uninstalled
+$yum-config-manager --enable rhel-server-rhscl-7-rpms  #On RHEL, enable RHSCL repository for you system
 
 #RPM commands
 $rpm -q <packageName>   #query a package
