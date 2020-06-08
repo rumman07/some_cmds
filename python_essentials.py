@@ -141,3 +141,60 @@ langs = {
 
 for k,v in langs.items():
     print(v,":",k)
+
+#Adding the paswword again to test authentication Functions
+#Adding a default password item in list of a dictionary
+password = "pass123"
+
+for k in range(0,len(users)):
+    users[k]["password"] = password
+
+print(users)
+
+#Functions
+def authenticate(username,password):
+    for u in users:
+        if u["uname"] == username and u["password"] == password:
+            return True
+    return False
+
+#Calling the function
+username = "roger"
+password = "ss123"
+
+if authenticate(password = password, username = username):
+    print("Welcome to the application",username,"!")
+else:
+    print("Wrong credentials!")
+
+#Pass arbitary argument to a Functions as a list
+def multiply(*num):
+    if len(num) == 0:
+        return 0
+    result = 1
+    for n in num:
+        result *= n
+    return result
+print(multiply())
+
+#If you want to mix arbitary and positional arguments this can be done in python as long as the arbitary items comes as the last argument
+def add(msg, *sum):
+    if len(sum) == 0:
+        return 0
+    val = 0
+    for s in sum:
+        val += s
+    return msg + str(val)
+
+print(add("The total of the sum is ",6,7,5,3,55))
+
+#Pass arbitary arguments to a function as a dictionary
+def createUser(username,password,**meta):
+    newUser = {}
+    newUser["username"] = username
+    newUser["password"] = password
+    for k,v in meta.items():
+        newUser[k] = v
+    return newUser
+newUser = createUser(username = "genesys", password = "pass123", job = "DevOps Engineer", age = "30", country = "US", lang = "English" )
+print(newUser)
