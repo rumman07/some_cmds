@@ -223,7 +223,8 @@ $zip -r nameoffolder.zip foldertozip  #-r stands for recursive which recursively
 $yum install -y unzip  #To install unzip 
 $unzip <nameofzip.zip> #to uncompress a file 
 $unzip -r nameoffolder.zip  #-r recursively unzip 
-$unzip -l nameoffolder.zip  #list the content of the archive folder 
+$unzip -l nameoffolder.zip  #list the content of the archive folder
+unzip -d a a.zip   # -d option to set an alternate directory for the archive contents.
 
 
 ******************************All About Environmental Variables*******************************************************************
